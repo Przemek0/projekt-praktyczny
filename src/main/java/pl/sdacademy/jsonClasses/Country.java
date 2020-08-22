@@ -1,8 +1,6 @@
 package pl.sdacademy.jsonClasses;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Country {
     private String country;
@@ -15,7 +13,6 @@ public class Country {
     private int newRecovered;
     private int totalRecovered;
     private LocalDateTime date;
-    private final Set<String> premium = new HashSet<>();
 
     public Country(String country, String countryCode, String slug, int newConfirmed, int totalConfirmed, int newDeaths, int totalDeaths, int newRecovered, int totalRecovered, LocalDateTime date) {
         this.country = country;
@@ -110,10 +107,6 @@ public class Country {
         this.date = date;
     }
 
-    public Set<String> getPremium() {
-        return premium;
-    }
-
     @Override
     public String toString() {
         return "Country{" +
@@ -127,7 +120,6 @@ public class Country {
                 ", newRecovered=" + newRecovered +
                 ", totalRecovered=" + totalRecovered +
                 ", date=" + date +
-                ", premium=" + premium +
                 '}';
     }
 }
