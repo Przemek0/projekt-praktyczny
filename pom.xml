@@ -19,6 +19,7 @@
             </plugin>
         </plugins>
     </build>
+
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -30,23 +31,6 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.19.Final</version>
         </dependency>
-    </dependencies>
-
-    <dependencies>
-
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.4.19.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
-        </dependency>
-
     </dependencies>
 
 </project>
