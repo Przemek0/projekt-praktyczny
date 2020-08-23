@@ -1,4 +1,4 @@
-package pl.sdacademy;
+package pl.sdacademy.javafxui;
 
 public class PrimaryController {
 
