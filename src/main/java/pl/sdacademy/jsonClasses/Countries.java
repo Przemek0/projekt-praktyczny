@@ -2,7 +2,7 @@ package pl.sdacademy.jsonClasses;
 
 import java.time.LocalDateTime;
 
-public class Country {
+public class Countries {
     private String country;
     private String countryCode;
     private String slug;
@@ -14,7 +14,10 @@ public class Country {
     private int totalRecovered;
     private LocalDateTime date;
 
-    public Country(String country, String countryCode, String slug, int newConfirmed, int totalConfirmed, int newDeaths, int totalDeaths, int newRecovered, int totalRecovered, LocalDateTime date) {
+    public Countries() {
+    }
+
+    public Countries(String country, String countryCode, String slug, int newConfirmed, int totalConfirmed, int newDeaths, int totalDeaths, int newRecovered, int totalRecovered, LocalDateTime date) {
         this.country = country;
         this.countryCode = countryCode;
         this.slug = slug;
@@ -109,7 +112,7 @@ public class Country {
 
     @Override
     public String toString() {
-        return "Country{" +
+        return "Countries{" +
                 "country='" + country + '\'' +
                 ", countryCode='" + countryCode + '\'' +
                 ", slug='" + slug + '\'' +
