@@ -3,8 +3,7 @@ package pl.sdacademy.credentials;
 
 public interface UserRepository {
 
-    //Utwórz interfejs UserRepository z metodami CRUD (readById, readAll, create, update, delete)
-
+    //C2. Utwórz interfejs UserRepository z metodami CRUD (readById, readAll, create, update, delete)
 
     void readById();
 
