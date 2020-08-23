@@ -1,4 +1,4 @@
-package pl.sdacademy;
+package pl.sdacademy.dao;
 
 //Utwórz interfejs CovidDao. Oferuje metody (abstrakcyjne - bez implementacji):
 //        - getCountries, która zwróci listę wszystkich krajów (bez danych dot. wirusa)
