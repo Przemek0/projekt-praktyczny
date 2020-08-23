@@ -1,5 +1,6 @@
 package pl.sdacademy.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
@@ -10,7 +11,7 @@ public class Country extends AbstractEntity{
     private String name;
     private String codeName;
     private int numberResident;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private Set<StoreData> storeData = new HashSet<>();
 
     public Country() {
