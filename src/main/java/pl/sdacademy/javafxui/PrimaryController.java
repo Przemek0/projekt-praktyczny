@@ -1,4 +1,4 @@
-package pl.sdacademy;
+package pl.sdacademy.javafxui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

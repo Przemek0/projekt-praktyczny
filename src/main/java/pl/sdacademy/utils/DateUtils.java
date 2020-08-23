@@ -1,6 +1,7 @@
 package pl.sdacademy.utils;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -15,14 +16,18 @@ public class DateUtils {
         return noOfDaysBetween;
     }
 
-    //Dodaj do klasy DateUtils metodę, która przyjmie parametr
+    //D3. Dodaj do klasy DateUtils metodę, która przyjmie parametr
     // - zbiór dat, a która zwróci odpowiedź, czy między datami ze zbioru jest jakakolwiek luka.
-    public static boolean isContinuity(TreeSet<LocalDate> set) {
-        LocalDate first = set.first();
-        LocalDate last = set.last();
-        System.out.println("size " + set.size());
+    public static boolean isContinuity(HashSet<LocalDate> set) {
+        TreeSet<LocalDate> treeSet = new TreeSet<>();
+      for(LocalDate c : set){
+          treeSet.add(c);
+      }
+        LocalDate first = treeSet.first();
+        LocalDate last = treeSet.last();
+        //System.out.println("size " + set.size());
         int daysBetweenFirstAndLast = (int) DAYS.between(first, last);
-        System.out.println("days between " + (daysBetweenFirstAndLast + 1));
+        //System.out.println("days between " + (daysBetweenFirstAndLast + 1));
         if (daysBetweenFirstAndLast + 1 == set.size())
             return true;
         else return false;

@@ -1,5 +1,7 @@
 package pl.sdacademy.credentials;
 
+import pl.sdacademy.entities.AbstractEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,9 +10,8 @@ import java.time.LocalDate;
 
 
 @Entity
-public class User {
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+public class User extends AbstractEntity {
+
 
     //C1 Utwórz klasę User w pakiecie pl.sdacademy.credentials, o polach: id, firstName, lastName, dateOfBirth, admin (boolean)
     int id;
@@ -18,5 +19,6 @@ public class User {
     String lastName;
     LocalDate dateOfBirth;
     boolean admin;
+
 
 }
