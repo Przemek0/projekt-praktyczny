@@ -1,8 +1,5 @@
 package pl.sdacademy.jsonClasses;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Global {
     private int newConfirmed;
     private int totalConfirmed;
@@ -10,7 +7,9 @@ public class Global {
     private int totalDeaths;
     private int newRecovered;
     private int totalRecovered;
-    private final Set<Country> countries = new HashSet<>();
+
+    public Global() {
+    }
 
     public Global(int newConfirmed, int totalConfirmed, int newDeaths, int totalDeaths, int newRecovered, int totalRecovered) {
         this.newConfirmed = newConfirmed;
@@ -69,10 +68,6 @@ public class Global {
         this.totalRecovered = totalRecovered;
     }
 
-    public Set<Country> getCountries() {
-        return countries;
-    }
-
     @Override
     public String toString() {
         return "Global{" +
@@ -82,7 +77,6 @@ public class Global {
                 ", totalDeaths=" + totalDeaths +
                 ", newRecovered=" + newRecovered +
                 ", totalRecovered=" + totalRecovered +
-                ", countries=" + countries +
                 '}';
     }
 }
