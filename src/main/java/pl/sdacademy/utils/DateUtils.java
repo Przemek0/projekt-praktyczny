@@ -27,4 +27,13 @@ public class DateUtils {
             return true;
         else return false;
     }
+
+    //Dodaj do klasy DateUtils metodę, która przyjmie parametr
+    // - listę dat, a która zwróci liczbę dni, między dwoma najodleglejszymi datami.
+    public static int noOfDaysBetweenMinAndMax(TreeSet<LocalDate> set){
+        LocalDate first = set.first();
+        LocalDate last = set.last();
+        int daysBetweenMinAndMax = (int) DAYS.between(first, last);
+        return daysBetweenMinAndMax;
+    }
 }
