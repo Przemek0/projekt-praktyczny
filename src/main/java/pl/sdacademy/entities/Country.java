@@ -17,6 +17,13 @@ public class Country extends AbstractEntity{
     public Country() {
     }
 
+    public Country(Integer id, String name, String codeName, int numberResident) {
+        this.id = id;
+        this.name = name;
+        this.codeName = codeName;
+        this.numberResident = numberResident;
+    }
+
     public Country(String name, String codeName, int numberResident) {
         this.name = name;
         this.codeName = codeName;

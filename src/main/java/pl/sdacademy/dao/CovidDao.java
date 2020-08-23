@@ -10,11 +10,12 @@ package pl.sdacademy.dao;
 import pl.sdacademy.entities.Country;
 import pl.sdacademy.entities.StoreData;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface CovidDao {
-    public abstract List<Country> getCountries();
+    public abstract List<Country> getCountries() throws SQLException;
 
     public StoreData getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to);
 
