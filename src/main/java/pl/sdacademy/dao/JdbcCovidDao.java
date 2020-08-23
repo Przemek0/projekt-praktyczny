@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcCovidDao implements CovidDao {
+    private PreparedStatement preparedStatement;
+
     @Override
     public List<Country> getCountries() throws SQLException {
         MysqlDataSource dataSource = new MysqlDataSource();
@@ -20,7 +22,7 @@ public class JdbcCovidDao implements CovidDao {
         dataSource.setPassword("asdf654321");
         dataSource.setDatabaseName("practical_project");
         Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(
+        preparedStatement = connection.prepareStatement(
                 "SELECT * FROM practical_project.country"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
