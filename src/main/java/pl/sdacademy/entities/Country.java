@@ -1,10 +1,7 @@
 package pl.sdacademy.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
