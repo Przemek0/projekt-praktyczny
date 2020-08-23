@@ -16,7 +16,7 @@ public class PrimaryController {
 
     public void initialize() {
         showChartBtn.setOnAction(event -> {
-            openInNewWindow("dataChart.fxml");
+            openInNewWindow("/pl/sdacademy/dataChart.fxml");
         });
     }
 
