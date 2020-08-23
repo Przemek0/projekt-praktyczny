@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="445.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.sdacademy.PrimaryController">
+   <children>
+      <Label contentDisplay="CENTER" layoutX="226.0" layoutY="14.0" prefHeight="42.0" prefWidth="128.0" text="Wykres">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="79.0" text="Aktualnie zarażonych na świecie:" />
+      <Label layoutX="290.0" layoutY="79.0" text="X" />
+      <DatePicker layoutX="14.0" layoutY="212.0" promptText="From date" />
+      <DatePicker layoutX="14.0" layoutY="258.0" promptText="To date" />
+      <LineChart layoutX="226.0" layoutY="168.0" prefHeight="278.0" prefWidth="349.0">
+        <xAxis>
+          <CategoryAxis label="day" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Liczba aktualnie zarażonych osób" prefHeight="109.0" prefWidth="58.0" side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <Label layoutX="27.0" layoutY="119.0" prefHeight="17.0" prefWidth="185.0" text="Łącznie zgonów na świecie:" />
+      <Label layoutX="292.0" layoutY="119.0" text="X" />
+      <ComboBox layoutX="14.0" layoutY="168.0" prefWidth="150.0" promptText="Country" />
+   </children>
+</AnchorPane>
