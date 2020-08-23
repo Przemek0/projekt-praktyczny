@@ -1,0 +1,51 @@
+Biblioteka Gson udostępnia 'Gson.class', który obsługuje całą konwersję
+między obiektami Java i JSON. Instancję tej klasy można utworzyć,
+wywołując domyślnego konstruktora.
+Zwykle chciałbyś mieć jedną instancję Gson dla większości operacji w twoim
+programie.
+
+Gson gson = new Gson();
+
+Najpierw musimy stworzyć klasę naszego obiektu, z którą będziemy pracować
+
+class Person {
+   public String name;
+   public int age;
+
+   public Person(String name, int age){
+       this.name = name;
+       this.age = age;
+   }
+}
+
+Klasa Gson dostarcza metody do toJson i fromJson które są głównymi
+punktami wejścia dla JSON i obiektów Java
+
+Spróbujmy przekonwertować obiekt Java na JSON i wrócić do obiektu Java
+
+Person person = new Person("Jason", 29);
+String json = gson.toJson(person);
+
+Outputs: {"name": "Jason", "age": 29}        // wynik java -> Json
+
+A teraz z powrotem:
+
+String json = "{\"name\": \"Jason\", \"age\": 29}";
+Person person = gson.fromJson(json, Person.class);
+System.out.println(
+        person.age + "yo " +
+        person.name + " walks into a bar"
+);
+
+29 yo Jason walks into a bar"                  // wynik Json -> java
+
+Uwaga!!!
+- nazwy pul class muszą odwzorowywać nazwy pierwszych członów nazw json
+  możliwe dopasowanie wielkości liter: .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+- klasy również muszą odwzorowywać strukturę dżewiastą.
+- typy pól json tylko String!
+  typy pól class z godne z typami danych
+  (auto serializacja danych: .registerTypeAdapter)
+
+  jsonClasses -> zawierają dokładne klasy.
+              -> Class Summery - pobiera aktualny pakiet danych getWeb.

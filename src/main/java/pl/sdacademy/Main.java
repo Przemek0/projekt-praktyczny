@@ -10,8 +10,9 @@ public class Main {
 //        SessionFactory sessionFactory = sessionFactoryProvider.getSessionFactory();
 //        sessionFactory.close();
 
-        Summary summary = GetSummary.getSummary();
+        GetSummary getSummary = new GetSummary();
+        Summary summary = getSummary.getSummary();
         System.out.println(summary);
-
     }
+
 }

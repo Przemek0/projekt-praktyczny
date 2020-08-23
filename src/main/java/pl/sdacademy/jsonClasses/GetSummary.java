@@ -1,17 +1,21 @@
 package pl.sdacademy.jsonClasses;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializer;
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class GetSummary {
+    String uri = "https://api.covid19api.com/summary";
+    FieldNamingPolicy naming = FieldNamingPolicy.UPPER_CAMEL_CASE;
+    Type type = LocalDateTime.class;
 
-    public static Summary getSummary() {
+    public Summary getSummary() {
         try {
             return getExampleApiWeb();
         } catch (IOException e) {
@@ -20,22 +24,21 @@ public class GetSummary {
         }
     }
 
-    public static Summary getExampleApiWeb() throws IOException {
+    private Summary getExampleApiWeb() throws IOException {
         Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .registerTypeAdapter(LocalDateTime.class, serializeDateTime())
+                .setFieldNamingPolicy(naming)
+                .registerTypeAdapter(type, serializeDateTime())
                 .create();
-        URL url = new URL("https://api.covid19api.com/summary");
+        URL url = new URL(uri);
         InputStreamReader reader = new InputStreamReader(url.openStream());
         return gson.fromJson(reader, Summary.class);
     }
 
-
-    private static JsonDeserializer<LocalDateTime> serializeDateTime() {
+    private JsonDeserializer<LocalDateTime> serializeDateTime() {
         return (json, type, jsonDeserializationContext)
                 ->
-                ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString())
-                        .toLocalDateTime();
+                ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()
+                ).toLocalDateTime();
     }
 
 }
