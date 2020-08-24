@@ -16,14 +16,14 @@ public class PrimaryController {
 
     public void initialize() {
         showChartBtn.setOnAction(event -> {
-            openInNewWindow("/pl/sdacademy/dataChart.fxml");
+            openInNewWindow("dataChart");
         });
     }
 
     private void openInNewWindow(String fxml) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource(fxml));
+            root = FXMLLoader.load(getClass().getResource(fxml + ".fxml"));
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
