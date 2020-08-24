@@ -7,6 +7,7 @@ import pl.sdacademy.entities.StoreData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public class DataChartController {
     private CovidDao covidDao;
@@ -19,7 +20,7 @@ public class DataChartController {
             }
 
             @Override
-            public StoreData getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) {
+            public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) {
                 return null;
             }
 

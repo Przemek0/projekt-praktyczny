@@ -18,7 +18,17 @@ public class StoreData extends AbstractEntity{
     public StoreData() {
     }
 
-    public StoreData(LocalDateTime date, int deaths, int infections, int recoveries, int activeCases, int totalDeaths, Country country) {
+    public StoreData(LocalDateTime date, int deaths, int infections, int recoveries, int activeCases, int totalDeaths) {
+        this.date = date;
+        this.deaths = deaths;
+        this.infections = infections;
+        this.recoveries = recoveries;
+        this.activeCases = activeCases;
+        this.totalDeaths = totalDeaths;
+    }
+
+    public StoreData(int id, LocalDateTime date, int deaths, int infections, int recoveries, int activeCases, int totalDeaths, Country country) {
+        this.id = id;
         this.date = date;
         this.deaths = deaths;
         this.infections = infections;

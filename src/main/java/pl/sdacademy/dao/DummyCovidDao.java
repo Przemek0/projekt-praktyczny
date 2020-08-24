@@ -5,8 +5,7 @@ import pl.sdacademy.entities.StoreData;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 // Utwórz implementacją interfejsu CovidDao (DB3) o nazwie DummyCovidDao.
 // Niech implementacja ta zwraca na sztywno przygotowane dane. Metoda zapisująca dane niczego nie wykona.
@@ -22,24 +21,51 @@ public class DummyCovidDao implements CovidDao {
     }
 
     @Override
-    public StoreData getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) {
+    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) {
         Country country = getCountries().get(0);
-        StoreData storeData = new StoreData(LocalDateTime.now(), 123, 1234, 12345, 123456, 11, country);
-        return storeData;
+        StoreData storeData = new StoreData(
+                1,
+                LocalDateTime.now(),
+                123,
+                1234,
+                12345,
+                123456,
+                11,
+                country
+        );
+        Set<StoreData> storeDataSet = new HashSet<>();
+        storeDataSet.add(storeData);
+        return storeDataSet;
     }
 
     @Override
     public StoreData getCurrentDataByCountry(int id) {
         Country country = getCountries().get(0);
-        StoreData storeData = new StoreData(LocalDateTime.now(), 11, 1234, 12345, 123456, 11, country);
-        return storeData;
+        return new StoreData(
+                1,
+                LocalDateTime.now(),
+                11,
+                1234,
+                12345,
+                123456,
+                11,
+                country
+        );
     }
 
     @Override
     public StoreData getCurrentWorldData() {
         Country country = getCountries().get(0);
-        StoreData storeData = new StoreData(LocalDateTime.now(), 213, 42, 12345, 123456, 11, country);
-        return storeData;
+        return new StoreData(
+                1,
+                LocalDateTime.now(),
+                213,
+                42,
+                12345,
+                123456,
+                11,
+                country
+        );
     }
 
     @Override

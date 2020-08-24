@@ -13,15 +13,16 @@ import pl.sdacademy.entities.StoreData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public interface CovidDao {
     public abstract List<Country> getCountries() throws SQLException;
 
-    public StoreData getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to);
+    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) throws SQLException;
 
-    public StoreData getCurrentDataByCountry(int id);
+    public StoreData getCurrentDataByCountry(int id) throws SQLException;
 
-    public StoreData getCurrentWorldData();
+    public StoreData getCurrentWorldData() throws SQLException;
 
     public void storeData(List<Country> countryList);
 }
