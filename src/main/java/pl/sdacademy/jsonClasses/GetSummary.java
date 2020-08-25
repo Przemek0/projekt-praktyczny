@@ -11,11 +11,8 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class GetSummary {
-    String uri = "https://api.covid19api.com/summary";
-    FieldNamingPolicy naming = FieldNamingPolicy.UPPER_CAMEL_CASE;
-    Type type = LocalDateTime.class;
 
-    public Summary getSummary() {
+    public static Summary getSummary() {
         try {
             return getExampleApiWeb();
         } catch (IOException e) {
@@ -24,21 +21,19 @@ public class GetSummary {
         }
     }
 
-    private Summary getExampleApiWeb() throws IOException {
+    private static Summary getExampleApiWeb() throws IOException {
         Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(naming)
-                .registerTypeAdapter(type, serializeDateTime())
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .registerTypeAdapter(
+                        LocalDateTime.class,
+                        (JsonDeserializer<LocalDateTime>) (json, type, jsonDeserializationContext) ->
+                                ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()).toLocalDateTime()
+                )
                 .create();
+        String uri = "https://api.covid19api.com/summary";
         URL url = new URL(uri);
         InputStreamReader reader = new InputStreamReader(url.openStream());
         return gson.fromJson(reader, Summary.class);
-    }
-
-    private JsonDeserializer<LocalDateTime> serializeDateTime() {
-        return (json, type, jsonDeserializationContext)
-                ->
-                ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()
-                ).toLocalDateTime();
     }
 
 }

@@ -1,7 +1,7 @@
 package pl.sdacademy;
 
 import org.hibernate.SessionFactory;
-import pl.sdacademy.credentials.User;
+import pl.sdacademy.jsonClasses.ApiDataProvider;
 import pl.sdacademy.jsonClasses.GetSummary;
 import pl.sdacademy.jsonClasses.Summary;
 
@@ -12,8 +12,7 @@ public class Main {
         SessionFactory sessionFactory = sessionFactoryProvider.getSessionFactory();
         sessionFactory.close();
 
-        GetSummary getSummary = new GetSummary();
-        Summary summary = getSummary.getSummary();
+        Summary summary = ApiDataProvider.apiDataProvider();
         System.out.println(summary);
     }
 
