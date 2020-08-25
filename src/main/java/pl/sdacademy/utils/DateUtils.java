@@ -8,7 +8,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class DateUtils {
 
-
     //Dodaj do klasy DateUtils metodę, która przyjmie dwa parametry
     //- dwie daty (obiekty typu LocalDate), a która zwróci liczbę dni dzielących te daty.
     public static int numberOfDaysBetween(LocalDate fromDate, LocalDate toDate) {
