@@ -1,8 +1,11 @@
 package pl.sdacademy.utils;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -28,10 +31,10 @@ public class DateUtils {
 
     //D4. Dodaj do klasy DateUtils metodę, która przyjmie parametr
     // - listę dat, a która zwróci liczbę dni, między dwoma najodleglejszymi datami.
-    public static int noOfDaysBetweenMinAndMax(HashSet<LocalDate> set){
-        TreeSet<LocalDate> treeSet = new TreeSet<>(set);
-        LocalDate first = treeSet.first();
-        LocalDate last = treeSet.last();
+    public static int noOfDaysBetweenMinAndMax(List<LocalDate> list){
+        list.sort(Comparator.naturalOrder());
+        LocalDate first = list.get(0);
+        LocalDate last = list.get(list.size()-1);
         return ((int) DAYS.between(first, last));
     }
 }
