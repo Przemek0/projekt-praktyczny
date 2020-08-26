@@ -15,11 +15,9 @@ public class HibernateUserRepository implements UserRepository{
     @Override
     public User readById(int id) {
         Session session = sessionFactory.openSession();
-        Query<User> query = session.createQuery("SELECT u FROM User u WHERE u.id = id", User.class);
-        User singleResult = query.getSingleResult();
+        User user = session.get(User.class, id);
         session.close();
-        sessionFactory.close();
-        return singleResult;
+        return user;
     }
 
     @Override
