@@ -93,4 +93,18 @@ public class StoreData extends AbstractEntity{
     public void setCountry(Country country) {
         this.country = country;
     }
+
+    @Override
+    public String toString() {
+        return "StoreData{" +
+                "date=" + date +
+                ", deaths=" + deaths +
+                ", infections=" + infections +
+                ", recoveries=" + recoveries +
+                ", activeCases=" + activeCases +
+                ", totalDeaths=" + totalDeaths +
+                ", country=" + country +
+                ", id=" + id +
+                '}';
+    }
 }

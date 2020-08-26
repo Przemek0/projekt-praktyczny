@@ -57,4 +57,15 @@ public class Country extends AbstractEntity{
     public Set<StoreData> getStoreData() {
         return storeData;
     }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "name='" + name + '\'' +
+                ", codeName='" + codeName + '\'' +
+                ", numberResident=" + numberResident +
+                ", storeData=" + storeData +
+                ", id=" + id +
+                '}';
+    }
 }
