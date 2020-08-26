@@ -16,4 +16,20 @@ public class User extends AbstractEntity {
     public User() {
     }
 
+    public User(String firstName, String lastName, LocalDate dateOfBirth, boolean admin) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.admin = admin;
+    }
+
+    public User(int id, String firstName, String lastName, LocalDate dateOfBirth, boolean admin) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.admin = admin;
+    }
+
+
 }
