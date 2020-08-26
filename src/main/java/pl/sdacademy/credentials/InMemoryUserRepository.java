@@ -31,13 +31,12 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public void create() {
-
+    public void create(User user) {
+        userList.add(user);
     }
 
     @Override
     public void update(User user) {
-
     }
 
     @Override

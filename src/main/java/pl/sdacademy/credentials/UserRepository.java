@@ -8,7 +8,7 @@ public interface UserRepository {
 
     public List<User> readAll();
 
-    public void create();
+    public void create(User user);
 
     public void update(User user);
 

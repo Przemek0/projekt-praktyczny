@@ -33,7 +33,7 @@ public class HibernateUserRepository implements UserRepository{
     }
 
     @Override
-    public void create() {
+    public void create(User user) {
 
     }
 
