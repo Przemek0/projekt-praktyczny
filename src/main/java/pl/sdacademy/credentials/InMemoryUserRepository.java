@@ -13,8 +13,8 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public void readById(int id) {
-
+    public User readById(int id) {
+        return null;
     }
 
     @Override
@@ -28,12 +28,12 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public void update() {
+    public void update(User user) {
 
     }
 
     @Override
-    public void delete() {
+    public void delete(int id) {
 
     }
 }
