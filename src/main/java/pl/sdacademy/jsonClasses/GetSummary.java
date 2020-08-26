@@ -12,6 +12,8 @@ import java.time.ZonedDateTime;
 
 public class GetSummary {
 
+    // Jeszcze nie kasować clasy.
+
     public static Summary getSummary() {
         try {
             return getExampleApiWeb();

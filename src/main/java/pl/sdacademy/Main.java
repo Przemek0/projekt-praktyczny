@@ -2,7 +2,6 @@ package pl.sdacademy;
 
 import org.hibernate.SessionFactory;
 import pl.sdacademy.jsonClasses.ApiDataProvider;
-import pl.sdacademy.jsonClasses.GetSummary;
 import pl.sdacademy.jsonClasses.Summary;
 
 public class Main {

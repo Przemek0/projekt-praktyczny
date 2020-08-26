@@ -14,11 +14,12 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class ApiDataProvider {
+    private static final String uri = "https://api.covid19api.com/summary";
+    private static final String catalog = "src/main/resources/pl/sdacademy/jsonClasses/";
 
     public static Summary apiDataProvider() {
-        String nameFile = "data.json";
-        apiToFile(nameFile, getApiFromUrl());
-        return apiDataProvider(nameFile);
+        apiToFile("data.json", getApiFromUrl());
+        return apiDataProvider("data.json");
     }
 
     private static Summary apiDataProvider(String fileName) {
@@ -31,16 +32,16 @@ public class ApiDataProvider {
                 )
                 .create();
         try {
-            return gson.fromJson(new FileReader("src/main/resources/pl/sdacademy/jsonClasses/" + fileName), Summary.class);
+            return gson.fromJson(new FileReader(catalog + fileName), Summary.class);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private static void apiToFile(String fileName, String stringApi) {
+    private static void apiToFile(String fileName, StringBuilder stringApi) {
         try {
-            Writer writer = Files.newBufferedWriter(Paths.get("src/main/resources/pl/sdacademy/jsonClasses/" + fileName));
+            Writer writer = Files.newBufferedWriter(Paths.get(catalog + fileName));
             writer.append(stringApi);
             writer.close();
         } catch (IOException e) {
@@ -48,9 +49,9 @@ public class ApiDataProvider {
         }
     }
 
-    private static String getApiFromUrl() {
+    private static StringBuilder getApiFromUrl() {
         try {
-            URL url = new URL("https://api.covid19api.com/summary");
+            URL url = new URL(uri);
             BufferedReader reader;
 
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
@@ -58,7 +59,6 @@ public class ApiDataProvider {
             StringBuilder jsonString = new StringBuilder();
 
             String line;
-
             while ((line = reader.readLine()) != null) {
                 jsonString.append(line);
             }
@@ -66,10 +66,11 @@ public class ApiDataProvider {
             reader.close();
             httpsURLConnection.disconnect();
 
-            return jsonString.toString();
+            return jsonString;
         } catch (IOException e) {
             return null;
         }
+
     }
 
 }
