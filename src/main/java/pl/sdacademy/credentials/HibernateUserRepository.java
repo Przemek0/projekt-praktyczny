@@ -8,7 +8,7 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 public class HibernateUserRepository implements UserRepository{
-    private SessionFactory sessionFactory = new Configuration()
+    private final SessionFactory sessionFactory = new Configuration()
             .configure()
             .buildSessionFactory();
 

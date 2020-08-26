@@ -21,20 +21,22 @@ public class DateUtils {
     // - zbiór dat, a która zwróci odpowiedź, czy między datami ze zbioru jest jakakolwiek luka.
     public static boolean isContinuity(HashSet<LocalDate> set) {
         TreeSet<LocalDate> treeSet = new TreeSet<>(set);
+        if (set.size() <= 1) return false;
         LocalDate first = treeSet.first();
         LocalDate last = treeSet.last();
         //System.out.println("size " + set.size());
         int daysBetweenFirstAndLast = (int) DAYS.between(first, last);
         //System.out.println("days between " + (daysBetweenFirstAndLast + 1));
-        return daysBetweenFirstAndLast + 1 == set.size();
+        return daysBetweenFirstAndLast != 0;
     }
 
     //D4. Dodaj do klasy DateUtils metodę, która przyjmie parametr
     // - listę dat, a która zwróci liczbę dni, między dwoma najodleglejszymi datami.
-    public static int noOfDaysBetweenMinAndMax(List<LocalDate> list){
+    public static int noOfDaysBetweenMinAndMax(List<LocalDate> list) {
+        if (list.size() <= 1) return 0;
         list.sort(Comparator.naturalOrder());
         LocalDate first = list.get(0);
-        LocalDate last = list.get(list.size()-1);
+        LocalDate last = list.get(list.size() - 1);
         return ((int) DAYS.between(first, last));
     }
 }

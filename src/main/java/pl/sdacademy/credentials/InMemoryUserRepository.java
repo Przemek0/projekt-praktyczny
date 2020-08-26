@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class InMemoryUserRepository implements UserRepository {
-    private List<User> userList = new ArrayList<>();
+    private final List<User> userList = new ArrayList<>();
 
     public InMemoryUserRepository() {
         User user = new User(0, "Przemek", "Piwonski", LocalDate.of(1991, 9, 17), true);
@@ -16,9 +16,12 @@ public class InMemoryUserRepository implements UserRepository {
 
     @Override
     public User readById(int id) {
-        User user = null;
+        User user;
         try {
-            user = userList.stream().filter(u -> u.getId() == id).collect(Collectors.toList()).get(0);
+            user = userList.stream()
+                    .filter(u -> u.getId() == id)
+                    .collect(Collectors.toList())
+                    .get(0);
         } catch (IndexOutOfBoundsException e) {
             user = null;
         }
