@@ -3,6 +3,8 @@ package pl.sdacademy.credentials;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class InMemoryUserRepository implements UserRepository {
     private List<User> userList = new ArrayList<>();
@@ -14,12 +16,18 @@ public class InMemoryUserRepository implements UserRepository {
 
     @Override
     public User readById(int id) {
-        return null;
+        User user = null;
+        try {
+            user = userList.stream().filter(u -> u.getId() == id).collect(Collectors.toList()).get(0);
+        } catch (IndexOutOfBoundsException e) {
+            user = null;
+        }
+        return user;
     }
 
     @Override
     public List<User> readAll() {
-        return null;
+        return userList;
     }
 
     @Override
