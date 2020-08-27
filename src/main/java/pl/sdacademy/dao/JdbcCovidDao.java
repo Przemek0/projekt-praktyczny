@@ -13,13 +13,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class JdbcCovidDao implements CovidDao {
-    private PreparedStatement getCountries;
-    private PreparedStatement getDataByCountryAndDateRange;
-    private PreparedStatement getCurrentDataByCountry;
-    private PreparedStatement getCurrentWorldData;
+    private final PreparedStatement getCountries;
+    private final PreparedStatement getDataByCountryAndDateRange;
+    private final PreparedStatement getCurrentDataByCountry;
+    private final PreparedStatement getCurrentWorldData;
+    private final PreparedStatement clearStoredData;
+    private final PreparedStatement saveCountry;
+    private final PreparedStatement saveStoreData;
+    private final PreparedStatement saveCountryStoreData;
     private Connection connection;
 
     public JdbcCovidDao() throws SQLException {
@@ -29,19 +32,48 @@ public class JdbcCovidDao implements CovidDao {
         );
 
         getCurrentDataByCountry = connection.prepareStatement(
-                "SELECT * FROM practical_project.storedata WHERE country_id = ?"
+                "SELECT * " +
+                        "FROM practical_project.storedata " +
+                        "JOIN practical_project.country_storedata cs on storedata.id = cs.storeData_id " +
+                        "WHERE cs.Country_id = ?"
         );
 
         getDataByCountryAndDateRange = connection.prepareStatement(
                 "SELECT practical_project.storedata.* FROM practical_project.storedata " +
+                        "JOIN practical_project.country_storedata countrysd on storedata.id = countrysd.storeData_id " +
+                        "JOIN practical_project.country on country.id = countrysd.Country_id " +
                         "WHERE country_id = ? AND (date > ? AND date < ?)"
         );
 
         getCurrentWorldData = connection.prepareStatement(
-                "SELECT practical_project.storedata.* " +
-                        "FROM practical_project.storedata " +
-                        "JOIN practical_project.country on country.id = storedata.country_id " +
-                        "WHERE country.name = 'Global'"
+                "SELECT SUM(storedata.activeCases)," +
+                        "SUM(storedata.infections)," +
+                        "SUM(storedata.recoveries)," +
+                        "SUM(storedata.deaths)," +
+                        "SUM(storedata.totalDeaths)," +
+                        "date " +
+                        "FROM practical_project.storedata"
+        );
+
+        clearStoredData = connection.prepareStatement(
+                "DELETE FROM practical_project.storedata, practical_project.country, practical_project.country_storedata"
+        );
+
+        saveCountry = connection.prepareStatement(
+                "INSERT INTO practical_project.country (codeName, name, numberResident) " +
+                        "VALUES (?, ?, ?)",
+                Statement.RETURN_GENERATED_KEYS
+        );
+
+        saveStoreData = connection.prepareStatement(
+                "INSERT INTO practical_project.storedata (activeCases, date, deaths, infections, recoveries, totalDeaths) " +
+                        "VALUES (?, ?, ?, ?, ?, ?)",
+                Statement.RETURN_GENERATED_KEYS
+        );
+
+        saveCountryStoreData = connection.prepareStatement(
+                "INSERT INTO practical_project.country_storedata (Country_id, storeData_id) " +
+                        "VALUES (?, ?)"
         );
     }
 
@@ -68,7 +100,7 @@ public class JdbcCovidDao implements CovidDao {
         ResultSet resultSet = getDataByCountryAndDateRange.executeQuery();
         Set<StoreData> storeDataSet = new HashSet<>();
         while (resultSet.next()) {
-            StoreData storeData = getStoreData(resultSet);
+            StoreData storeData = getStoredData(resultSet);
             storeDataSet.add(storeData);
         }
         return storeDataSet;
@@ -80,7 +112,7 @@ public class JdbcCovidDao implements CovidDao {
         ResultSet resultSet = getCurrentDataByCountry.executeQuery();
         StoreData storeData = new StoreData();
         if (resultSet.next()) {
-            storeData = getStoreData(resultSet);
+            storeData = getStoredData(resultSet);
         }
         return storeData;
     }
@@ -90,16 +122,59 @@ public class JdbcCovidDao implements CovidDao {
         ResultSet resultSet = getCurrentWorldData.executeQuery();
         StoreData storeData = new StoreData();
         if (resultSet.next()) {
-            storeData = getStoreData(resultSet);
+            storeData = getStoredData(resultSet);
         }
         return storeData;
     }
 
     @Override
     public void storeData(List<Country> countryList) {
+        countryList.forEach(country -> {
+            try {
+                saveCountry(country);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
     }
 
-    private StoreData getStoreData(ResultSet resultSet) throws SQLException {
+    private void saveCountry(Country country) throws SQLException {
+        clearStoredData.executeUpdate();
+        saveCountry.setString(1, country.getCodeName());
+        saveCountry.setString(2, country.getName());
+        saveCountry.setInt(3, country.getNumberResident());
+        saveCountry.execute();
+        ResultSet countryGeneratedKeys = saveCountry.getGeneratedKeys();
+        countryGeneratedKeys.next();
+        int countryId = countryGeneratedKeys.getInt(1);
+        country.setId(countryId);
+        country.getStoreData().forEach(storeData -> {
+            try {
+                saveStoreData(countryId, storeData);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
+    }
+
+    private void saveStoreData(int countryId, StoreData storeData) throws SQLException {
+        saveStoreData.setInt(1, storeData.getActiveCases());
+        saveStoreData.setDate(2, Date.valueOf(storeData.getDate().toLocalDate()));
+        saveStoreData.setInt(3, storeData.getDeaths());
+        saveStoreData.setInt(4, storeData.getInfections());
+        saveStoreData.setInt(5, storeData.getRecoveries());
+        saveStoreData.setInt(6, storeData.getTotalDeaths());
+        saveStoreData.execute();
+        ResultSet storeDataGeneratedKeys = saveStoreData.getGeneratedKeys();
+        storeDataGeneratedKeys.next();
+        int storeDataId = storeDataGeneratedKeys.getInt(1);
+        storeData.setId(storeDataId);
+        saveCountryStoreData.setInt(1, countryId);
+        saveCountryStoreData.setInt(2, storeDataId);
+        saveCountryStoreData.execute();
+    }
+
+    private StoreData getStoredData(ResultSet resultSet) throws SQLException {
         int resultId = resultSet.getInt("id");
         int activeCases = resultSet.getInt("activeCases");
         Date date = resultSet.getDate("date");
@@ -120,8 +195,7 @@ public class JdbcCovidDao implements CovidDao {
                 infections,
                 recoveries,
                 activeCases,
-                totalDeaths,
-                country
+                totalDeaths
         );
     }
 
