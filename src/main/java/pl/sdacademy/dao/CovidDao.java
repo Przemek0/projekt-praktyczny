@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface CovidDao {
-    public abstract List<Country> getCountries();
+    public abstract List<Country> getCountries() throws SQLException;
 
     public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to);
 
