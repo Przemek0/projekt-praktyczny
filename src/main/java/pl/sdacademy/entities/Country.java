@@ -11,8 +11,8 @@ public class Country extends AbstractEntity{
     private String name;
     private String codeName;
     private int numberResident;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private Set<StoreData> storeData = new HashSet<>();
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private final Set<StoreData> storeData = new HashSet<>();
 
     public Country() {
     }

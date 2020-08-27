@@ -2,8 +2,10 @@ package pl.sdacademy.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import pl.sdacademy.SessionFactoryProvider;
 import pl.sdacademy.entities.Country;
 import pl.sdacademy.entities.StoreData;
 
@@ -16,9 +18,7 @@ public class DbCovidDao implements CovidDao {
     SessionFactory sessionFactory;
 
     public DbCovidDao() {
-        sessionFactory = new Configuration()
-                .configure()
-                .buildSessionFactory();
+        sessionFactory = new SessionFactoryProvider().getSessionFactory();
     }
 
     @Override
@@ -87,6 +87,11 @@ public class DbCovidDao implements CovidDao {
 
     @Override
     public void storeData(List<Country> countryList) {
-
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        getCountries().forEach(session::delete);
+        countryList.forEach(session::persist);
+        transaction.commit();
+        session.close();
     }
 }
