@@ -8,10 +8,13 @@ public class SessionFactoryProvider {
 
     public SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
-            sessionFactory = new Configuration()
-                    .configure()
-                    .buildSessionFactory();
+            Configuration cfg = new Configuration();
+            cfg.configure();
+            cfg.getProperties().setProperty("connection.username", "root");
+            cfg.getProperties().setProperty("connection.password", "asdf654321");
+            sessionFactory = cfg.buildSessionFactory();
         }
+
         return sessionFactory;
     }
 }

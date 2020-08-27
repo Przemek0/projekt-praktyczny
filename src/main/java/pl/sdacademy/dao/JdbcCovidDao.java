@@ -56,7 +56,7 @@ public class JdbcCovidDao implements CovidDao {
         );
 
         clearStoredData = connection.prepareStatement(
-                "DELETE FROM practical_project.storedata, practical_project.country, practical_project.country_storedata"
+                "DELETE FROM practical_project.country"
         );
 
         saveCountry = connection.prepareStatement(
