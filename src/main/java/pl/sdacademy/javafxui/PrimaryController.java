@@ -12,6 +12,7 @@ import pl.sdacademy.dao.CovidDao;
 import pl.sdacademy.dao.DbCovidDao;
 import pl.sdacademy.entities.Country;
 import pl.sdacademy.jsonClasses.ApiEntityDataProvider;
+import pl.sdacademy.jsonClasses.EntityDataProvider;
 import pl.sdacademy.jsonClasses.Summary;
 
 import java.io.IOException;
@@ -22,6 +23,9 @@ import java.util.List;
 
 
 public class PrimaryController {
+    private final CovidDao dbCovidDao = new DbCovidDao();
+    private final EntityDataProvider apiEntityDataProvider = new ApiEntityDataProvider();
+
     @FXML
     private Button showChartBtn;
     @FXML
@@ -33,13 +37,10 @@ public class PrimaryController {
         showChartBtn.setOnAction(event -> openInNewWindow("dataChart"));
 
         updateBtn.setOnAction(event -> {
-            ApiEntityDataProvider apiEntityDataProvider = new ApiEntityDataProvider();
-            CovidDao covidDao = new DbCovidDao();
-            covidDao.storeData(apiEntityDataProvider.load());
-            String updated = "Dane zaktualizowano: " + LocalDate.now()
-                    .format(DateTimeFormatter.ISO_DATE);
-            LocalDate now = LocalDate.now();
-
+            dbCovidDao.storeData(apiEntityDataProvider.load());
+            String updated = "Dane zaktualizowano: " +
+                    LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+            updatedDateLbl.setText(updated);
         });
     }
 
