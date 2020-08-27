@@ -78,51 +78,67 @@ public class JdbcCovidDao implements CovidDao {
     }
 
     @Override
-    public List<Country> getCountries() throws SQLException {
-        ResultSet resultSet = getCountries.executeQuery();
+    public List<Country> getCountries() {
         List<Country> countries = new ArrayList<>();
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String name = resultSet.getString("name");
-            String codeName = resultSet.getString("codeName");
-            int numberResident = resultSet.getInt("numberResident");
-            Country country = new Country(id, name, codeName, numberResident);
-            countries.add(country);
+        try {
+            ResultSet resultSet = getCountries.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String codeName = resultSet.getString("codeName");
+                int numberResident = resultSet.getInt("numberResident");
+                Country country = new Country(id, name, codeName, numberResident);
+                countries.add(country);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return countries;
     }
 
     @Override
-    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) throws SQLException {
-        getDataByCountryAndDateRange.setInt(1, id);
-        getDataByCountryAndDateRange.setDate(2, Date.valueOf(from));
-        getDataByCountryAndDateRange.setDate(3, Date.valueOf(to));
-        ResultSet resultSet = getDataByCountryAndDateRange.executeQuery();
+    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) {
         Set<StoreData> storeDataSet = new HashSet<>();
-        while (resultSet.next()) {
-            StoreData storeData = getStoredData(resultSet);
-            storeDataSet.add(storeData);
+        try {
+            getDataByCountryAndDateRange.setInt(1, id);
+            getDataByCountryAndDateRange.setDate(2, Date.valueOf(from));
+            getDataByCountryAndDateRange.setDate(3, Date.valueOf(to));
+            ResultSet resultSet = getDataByCountryAndDateRange.executeQuery();
+            while (resultSet.next()) {
+                StoreData storeData = getStoredData(resultSet);
+                storeDataSet.add(storeData);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return storeDataSet;
     }
 
     @Override
-    public StoreData getCurrentDataByCountry(int id) throws SQLException {
-        getCurrentDataByCountry.setInt(1, id);
-        ResultSet resultSet = getCurrentDataByCountry.executeQuery();
+    public StoreData getCurrentDataByCountry(int id)  {
         StoreData storeData = new StoreData();
-        if (resultSet.next()) {
-            storeData = getStoredData(resultSet);
+        try {
+            getCurrentDataByCountry.setInt(1, id);
+            ResultSet resultSet = getCurrentDataByCountry.executeQuery();
+            if (resultSet.next()) {
+                storeData = getStoredData(resultSet);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return storeData;
     }
 
     @Override
-    public StoreData getCurrentWorldData() throws SQLException {
-        ResultSet resultSet = getCurrentWorldData.executeQuery();
+    public StoreData getCurrentWorldData() {
         StoreData storeData = new StoreData();
-        if (resultSet.next()) {
-            storeData = getStoredData(resultSet);
+        try {
+            ResultSet resultSet = getCurrentWorldData.executeQuery();
+            if (resultSet.next()) {
+                storeData = getStoredData(resultSet);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return storeData;
     }
