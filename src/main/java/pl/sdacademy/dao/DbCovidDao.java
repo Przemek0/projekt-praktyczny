@@ -54,8 +54,7 @@ public class DbCovidDao implements CovidDao {
                 "SELECT sd " +
                         "FROM Country c " +
                         "JOIN c.storeData sd " +
-                        "WHERE c.id = :id AND sd.date = :today",
-                StoreData.class
+                        "WHERE c.id = :id AND sd.date = :today", StoreData.class
         );
         query.setParameter("id", id);
         LocalDate today = LocalDate.now();
