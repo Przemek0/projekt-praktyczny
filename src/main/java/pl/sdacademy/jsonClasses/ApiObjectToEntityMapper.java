@@ -11,20 +11,20 @@ public class ApiObjectToEntityMapper {
         List<Country> countries = new ArrayList<>();
 
         summary.getCountries()
-                .forEach(e -> {
+                .forEach(getCountry -> {
                     Country country = new Country(
-                            e.getCountry(),
-                            e.getCountryCode(),
+                            getCountry.getCountry(),
+                            getCountry.getCountryCode(),
                             0
                     );
 
                     StoreData storeData = new StoreData(
-                            e.getDate(),
-                            e.getTotalDeaths(),
-                            e.getTotalConfirmed(),
-                            e.getTotalRecovered(),
-                            e.getTotalConfirmed() - e.getTotalDeaths()-e.getTotalRecovered(),
-                            e.getTotalDeaths()
+                            getCountry.getDate(),
+                            getCountry.getTotalDeaths(),
+                            getCountry.getTotalConfirmed(),
+                            getCountry.getTotalRecovered(),
+                            getCountry.getTotalConfirmed() - getCountry.getTotalDeaths()-getCountry.getTotalRecovered(),
+                            getCountry.getTotalDeaths()
                     );
 
                     country.getStoreData().add(storeData);

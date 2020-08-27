@@ -4,7 +4,9 @@ import org.hibernate.SessionFactory;
 import pl.sdacademy.entities.Country;
 import pl.sdacademy.entities.StoreData;
 import pl.sdacademy.jsonClasses.ApiDataProvider;
+import pl.sdacademy.jsonClasses.ApiEntityDataProvider;
 import pl.sdacademy.jsonClasses.ApiObjectToEntityMapper;
+import pl.sdacademy.jsonClasses.EntityDataProvider;
 
 import java.util.List;
 
@@ -15,7 +17,8 @@ public class Main {
         SessionFactory sessionFactory = sessionFactoryProvider.getSessionFactory();
         sessionFactory.close();
 
-        List<Country> co = ApiObjectToEntityMapper.map(ApiDataProvider.apiDataProvider());
+        ApiEntityDataProvider apiEntityDataProvider = new ApiEntityDataProvider();
+        List<Country> co = apiEntityDataProvider.load();
         co.forEach(System.out::println);
     }
 
