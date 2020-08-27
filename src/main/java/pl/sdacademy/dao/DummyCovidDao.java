@@ -10,52 +10,35 @@ import java.util.*;
 // Utwórz implementacją interfejsu CovidDao (DB3) o nazwie DummyCovidDao.
 // Niech implementacja ta zwraca na sztywno przygotowane dane. Metoda zapisująca dane niczego nie wykona.
 public class DummyCovidDao implements CovidDao {
+    private List<Country> countries = new ArrayList<>();
+
+    public DummyCovidDao() {
+        Country poland = new Country("Poland", "PL", 1234566);
+        StoreData polandStoreData = new StoreData(0, LocalDateTime.now(), 123, 1234,123123,123123,123123);
+        poland.getStoreData().add(polandStoreData);
+        Country germany = new Country("Germany", "DE", 1234566);
+        StoreData germanyStoreData = new StoreData(1, LocalDateTime.now(), 4325, 325,235,4526,234);
+        germany.getStoreData().add(germanyStoreData);
+    }
+
     @Override
     public List<Country> getCountries() {
-        Country poland = new Country("Poland", "PL", 1234566);
-        Country germany = new Country("Germany", "DE", 1234566);
-        List<Country> countries = new ArrayList<>();
-        countries.add(poland);
-        countries.add(germany);
         return countries;
     }
 
     @Override
     public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) {
-        Country country = getCountries().get(0);
-        StoreData storeData = new StoreData(
-                1,
-                LocalDateTime.now(),
-                123,
-                1234,
-                12345,
-                123456,
-                11,
-                country
-        );
-        Set<StoreData> storeDataSet = new HashSet<>();
-        storeDataSet.add(storeData);
-        return storeDataSet;
+        return countries.get(id).getStoreData();
     }
 
     @Override
     public StoreData getCurrentDataByCountry(int id) {
-        Country country = getCountries().get(0);
-        return new StoreData(
-                1,
-                LocalDateTime.now(),
-                11,
-                1234,
-                12345,
-                123456,
-                11,
-                country
-        );
+        Optional<StoreData> first = countries.get(id).getStoreData().stream().findFirst();
+        return first.orElse(null);
     }
 
     @Override
     public StoreData getCurrentWorldData() {
-        Country country = getCountries().get(0);
         return new StoreData(
                 1,
                 LocalDateTime.now(),
@@ -63,8 +46,7 @@ public class DummyCovidDao implements CovidDao {
                 42,
                 12345,
                 123456,
-                11,
-                country
+                11
         );
     }
 

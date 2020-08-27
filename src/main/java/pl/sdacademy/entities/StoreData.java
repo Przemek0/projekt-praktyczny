@@ -12,8 +12,6 @@ public class StoreData extends AbstractEntity{
     private int recoveries;
     private int activeCases;
     private int totalDeaths;
-    @ManyToOne
-    private Country country;
 
     public StoreData() {
     }
@@ -27,7 +25,7 @@ public class StoreData extends AbstractEntity{
         this.totalDeaths = totalDeaths;
     }
 
-    public StoreData(int id, LocalDateTime date, int deaths, int infections, int recoveries, int activeCases, int totalDeaths, Country country) {
+    public StoreData(int id, LocalDateTime date, int deaths, int infections, int recoveries, int activeCases, int totalDeaths) {
         this.id = id;
         this.date = date;
         this.deaths = deaths;
@@ -35,7 +33,6 @@ public class StoreData extends AbstractEntity{
         this.recoveries = recoveries;
         this.activeCases = activeCases;
         this.totalDeaths = totalDeaths;
-        this.country = country;
     }
 
     public LocalDateTime getDate() {
@@ -86,14 +83,6 @@ public class StoreData extends AbstractEntity{
         this.totalDeaths = totalDeaths;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     @Override
     public String toString() {
         return "StoreData{" +
@@ -103,7 +92,6 @@ public class StoreData extends AbstractEntity{
                 ", recoveries=" + recoveries +
                 ", activeCases=" + activeCases +
                 ", totalDeaths=" + totalDeaths +
-                ", country=" + country +
                 ", id=" + id +
                 '}';
     }
