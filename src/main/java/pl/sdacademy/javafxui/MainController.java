@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.sdacademy.dao.CovidDao;
-import pl.sdacademy.dao.DbCovidDao;
 import pl.sdacademy.jsonClasses.ApiEntityDataProvider;
 import pl.sdacademy.jsonClasses.EntityDataProvider;
 

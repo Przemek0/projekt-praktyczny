@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+
+<!--Dodajemy import do odpowiedniej klasy-->
+<?import pl.sdacademy.javafxui.examples.MyClass?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pl.sdacademy.javafxui.examples.MainController"
+            prefHeight="400.0" prefWidth="600.0">
+    <!--Dodajemy <fx:define>-->
+    <fx:define>
+        <!--nadajemy id naszemy obiektowyi oraz wywołujemy metodę getInstance parametrem fx:factory, która utworzy obiekt przy użyciu konstruktora
+        Przykład poniżej-->
+        <MyClass fx:id="myClass" fx:factory="getInstance"/>
+    </fx:define>
+    <children>
+        <Label fx:id="myLabel" layoutX="67.0" layoutY="19.0" text="Dane zaktualizowano "/>
+    </children>
+</AnchorPane>

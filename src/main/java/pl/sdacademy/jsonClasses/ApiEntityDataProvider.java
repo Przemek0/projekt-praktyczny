@@ -9,4 +9,8 @@ public class ApiEntityDataProvider implements EntityDataProvider {
         return ApiObjectToEntityMapper.map(ApiDataProvider.apiDataProvider());
     }
 
+    public static ApiEntityDataProvider getInstance() {
+        return new ApiEntityDataProvider();
+    }
+
 }

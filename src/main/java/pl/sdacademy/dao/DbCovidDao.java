@@ -20,6 +20,10 @@ public class DbCovidDao implements CovidDao {
         sessionFactory = new SessionFactoryProvider().getSessionFactory();
     }
 
+    public static DbCovidDao getInstance() {
+        return new DbCovidDao();
+    }
+
     @Override
     public List<Country> getCountries() {
         Session session = sessionFactory.openSession();
