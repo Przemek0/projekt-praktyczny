@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pl.sdacademy.dao.DbCovidDao;
+import pl.sdacademy.jsonClasses.ApiEntityDataProvider;
 
 import java.io.IOException;
 
@@ -25,6 +27,9 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        MainController controller = fxmlLoader.getController();
+        controller.setCovidDao(new DbCovidDao());
+        controller.setDataProvider(new ApiEntityDataProvider());
         return fxmlLoader.load();
     }
 

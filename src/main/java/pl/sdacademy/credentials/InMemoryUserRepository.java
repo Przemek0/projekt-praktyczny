@@ -1,5 +1,7 @@
 package pl.sdacademy.credentials;
 
+import jdk.internal.module.ModuleLoaderMap;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +42,11 @@ public class InMemoryUserRepository implements UserRepository {
 
     @Override
     public void update(User user) {
+        userList.get(user.getId()).update(user);
     }
 
     @Override
     public void delete(int id) {
-
+        userList.remove(id);
     }
 }

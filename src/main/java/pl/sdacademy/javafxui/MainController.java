@@ -16,9 +16,11 @@ import java.time.format.DateTimeFormatter;
 
 
 public class MainController {
-    @FXML
+//    @FXML
+//    private CovidDao covidDao;
+//    @FXML
+//    private EntityDataProvider dataProvider;
     private CovidDao covidDao;
-    @FXML
     private EntityDataProvider dataProvider;
     @FXML
     private Button showChartBtn;
@@ -49,5 +51,13 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setCovidDao(CovidDao covidDao) {
+        this.covidDao = covidDao;
+    }
+
+    public void setDataProvider(EntityDataProvider dataProvider) {
+        this.dataProvider = dataProvider;
     }
 }
