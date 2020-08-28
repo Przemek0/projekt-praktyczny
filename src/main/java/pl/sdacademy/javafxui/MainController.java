@@ -1,8 +1,8 @@
 package pl.sdacademy.javafxui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,21 +29,25 @@ public class MainController {
     @FXML
     private Label updatedDateLbl;
 
-    public void initialize() {
-        showChartBtn.setOnAction(event -> openInNewWindow("dataChart"));
+    @FXML
+    private void initialize() {
+        Platform.runLater(() -> {
+            showChartBtn.setOnAction(event -> openInNewWindow("dataChart"));
 
-        updateBtn.setOnAction(event -> {
-            covidDao.storeData(dataProvider.load());
-            String updated = "Dane zaktualizowano: " +
-                    LocalDate.now().format(DateTimeFormatter.ISO_DATE);
-            updatedDateLbl.setText(updated);
+            updateBtn.setOnAction(event -> {
+                covidDao.storeData(dataProvider.load());
+                String updated = "Dane zaktualizowano: " +
+                        LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+                updatedDateLbl.setText(updated);
+            });
         });
     }
 
     private void openInNewWindow(String fxml) {
-        Parent root;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml + ".fxml"));
+            DataChartController controller = fxmlLoader.getController();
+            controller.setCovidDao(covidDao);
             Stage stage = new Stage();
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);
