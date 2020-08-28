@@ -15,10 +15,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-public class PrimaryController {
-    private final CovidDao dbCovidDao = new DbCovidDao();
-    private final EntityDataProvider apiEntityDataProvider = new ApiEntityDataProvider();
-
+public class MainController {
+    @FXML
+    private CovidDao covidDao;
+    @FXML
+    private EntityDataProvider dataProvider;
     @FXML
     private Button showChartBtn;
     @FXML
@@ -30,7 +31,7 @@ public class PrimaryController {
         showChartBtn.setOnAction(event -> openInNewWindow("dataChart"));
 
         updateBtn.setOnAction(event -> {
-            dbCovidDao.storeData(apiEntityDataProvider.load());
+            covidDao.storeData(dataProvider.load());
             String updated = "Dane zaktualizowano: " +
                     LocalDate.now().format(DateTimeFormatter.ISO_DATE);
             updatedDateLbl.setText(updated);

@@ -19,7 +19,9 @@ public class JdbcCovidDao implements CovidDao {
     private final PreparedStatement getDataByCountryAndDateRange;
     private final PreparedStatement getCurrentDataByCountry;
     private final PreparedStatement getCurrentWorldData;
-    private final PreparedStatement clearStoredData;
+    private final PreparedStatement clearCountryStoreData;
+    private final PreparedStatement clearStoreData;
+    private final PreparedStatement clearCountry;
     private final PreparedStatement saveCountry;
     private final PreparedStatement saveStoreData;
     private final PreparedStatement saveCountryStoreData;
@@ -55,8 +57,16 @@ public class JdbcCovidDao implements CovidDao {
                         "FROM practical_project.storedata"
         );
 
-        clearStoredData = connection.prepareStatement(
-                "DELETE FROM practical_project.storedata, practical_project.country, practical_project.country_storedata"
+        clearCountryStoreData = connection.prepareStatement(
+                "DELETE FROM practical_project.country_storedata"
+        );
+
+        clearStoreData = connection.prepareStatement(
+                "DELETE FROM practical_project.storedata"
+        );
+
+        clearCountry = connection.prepareStatement(
+                "DELETE FROM practical_project.country"
         );
 
         saveCountry = connection.prepareStatement(
@@ -75,6 +85,7 @@ public class JdbcCovidDao implements CovidDao {
                 "INSERT INTO practical_project.country_storedata (Country_id, storeData_id) " +
                         "VALUES (?, ?)"
         );
+
     }
 
     @Override
@@ -145,6 +156,13 @@ public class JdbcCovidDao implements CovidDao {
 
     @Override
     public void storeData(List<Country> countryList) {
+        try {
+            clearCountryStoreData.executeUpdate();
+            clearStoreData.executeUpdate();
+            clearCountry.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         countryList.forEach(country -> {
             try {
                 saveCountry(country);
@@ -155,7 +173,6 @@ public class JdbcCovidDao implements CovidDao {
     }
 
     private void saveCountry(Country country) throws SQLException {
-        clearStoredData.executeUpdate();
         saveCountry.setString(1, country.getCodeName());
         saveCountry.setString(2, country.getName());
         saveCountry.setInt(3, country.getNumberResident());
