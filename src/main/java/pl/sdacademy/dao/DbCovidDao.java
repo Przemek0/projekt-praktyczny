@@ -17,7 +17,7 @@ public class DbCovidDao implements CovidDao {
     SessionFactory sessionFactory;
 
     public DbCovidDao() {
-        sessionFactory = new SessionFactoryProvider().getSessionFactory();
+        sessionFactory = SessionFactoryProvider.getSessionFactory();
     }
 
     public static DbCovidDao getInstance() {

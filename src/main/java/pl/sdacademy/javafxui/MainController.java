@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.sdacademy.dao.CovidDao;
-import pl.sdacademy.jsonClasses.ApiEntityDataProvider;
 import pl.sdacademy.jsonClasses.EntityDataProvider;
 
 import java.io.IOException;
@@ -41,9 +40,9 @@ public class PrimaryController {
     private void openInNewWindow(String fxml) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource(fxml + ".fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml + ".fxml"));
             Stage stage = new Stage();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

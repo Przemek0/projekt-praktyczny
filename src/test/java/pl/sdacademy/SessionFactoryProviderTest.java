@@ -12,9 +12,8 @@ import static org.junit.Assert.assertThrows;
 public class SessionFactoryProviderTest {
     @Test
     public void createSessionFactoryProvider() {
-        SessionFactoryProvider sessionFactoryProvider = new SessionFactoryProvider();
         try {
-            sessionFactoryProvider.getSessionFactory();
+            SessionFactoryProvider.getSessionFactory();
         } catch (Exception e) {
             throw new AssertionError("Connection failed");
         }

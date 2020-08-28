@@ -10,7 +10,7 @@ import java.util.*;
 // Utwórz implementacją interfejsu CovidDao (DB3) o nazwie DummyCovidDao.
 // Niech implementacja ta zwraca na sztywno przygotowane dane. Metoda zapisująca dane niczego nie wykona.
 public class DummyCovidDao implements CovidDao {
-    private List<Country> countries = new ArrayList<>();
+    private final List<Country> countries = new ArrayList<>();
 
     public DummyCovidDao() {
         Country poland = new Country("Poland", "PL", 1234566);

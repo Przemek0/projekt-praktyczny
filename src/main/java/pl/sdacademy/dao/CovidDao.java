@@ -10,7 +10,6 @@ package pl.sdacademy.dao;
 import pl.sdacademy.entities.Country;
 import pl.sdacademy.entities.StoreData;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
