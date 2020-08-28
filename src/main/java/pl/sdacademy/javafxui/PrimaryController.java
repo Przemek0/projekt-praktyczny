@@ -1,6 +1,5 @@
 package pl.sdacademy.javafxui;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,16 +9,12 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.sdacademy.dao.CovidDao;
 import pl.sdacademy.dao.DbCovidDao;
-import pl.sdacademy.entities.Country;
 import pl.sdacademy.jsonClasses.ApiEntityDataProvider;
 import pl.sdacademy.jsonClasses.EntityDataProvider;
-import pl.sdacademy.jsonClasses.Summary;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 
 public class PrimaryController {
