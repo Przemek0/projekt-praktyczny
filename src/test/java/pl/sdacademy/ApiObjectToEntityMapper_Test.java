@@ -23,7 +23,7 @@ public class ApiObjectToEntityMapper_Test {
         assert summary != null;
         List<Country> countries = ApiObjectToEntityMapper.map(summary);
         //then
-        assertEquals("Test mapper size countries", countries.size(), summary.getCountries().size());
+        assertEquals("Test mapper size countries", countries.size(), summary.getCountries().size()+1);
     }
 
     @Test
