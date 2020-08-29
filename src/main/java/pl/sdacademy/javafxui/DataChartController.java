@@ -20,7 +20,6 @@ public class DataChartController {
         StoreData currentWorldData = covidDao.getCurrentWorldData();
         activeCasesWorldLbl.setText(currentWorldData.getActiveCases() + "");
         totalDeathsWorldLbl.setText(currentWorldData.getTotalDeaths() + "");
-
         // Wypełnianie ComboBox -> nazwami krajów.
         covidDao.getCountries().forEach(country -> getListCountry.getItems().add(country.getName()));
         getListCountry.setValue("Poland");

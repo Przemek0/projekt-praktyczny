@@ -73,30 +73,44 @@ public class DbCovidDao implements CovidDao {
     public StoreData getCurrentWorldData() {
         Session session = sessionFactory.openSession();
         Query<StoreData> query = session.createQuery(
-                "SELECT new StoreData(" +
-                        "sd.date," +
-                        "CAST(SUM(sd.deaths) as integer ), " +
-                        "CAST(SUM(sd.infections) as integer ), " +
-                        "CAST(SUM(sd.recoveries) as integer ), " +
-                        "CAST(SUM(sd.activeCases) as integer ), " +
-                        "CAST(SUM(sd.totalDeaths) as integer ) " +
-                        ")" +
+                "SELECT " +
+                        "sd " +
                         "FROM Country c " +
                         "JOIN c.storeData sd " +
-                        "WHERE sd.date >= :from AND sd.date <= :to AND c.name <> 'Global'", StoreData.class);
-        LocalDateTime from = LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00,00,00));
-        LocalDateTime to = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59,00));
-        query.setParameter("from", from);
-        query.setParameter("to", to);
+                        "WHERE c.name = 'Global'", StoreData.class);
         StoreData storeData = query.getSingleResult();
         session.close();
         return storeData;
     }
+//    @Override
+//    public StoreData getCurrentWorldData() {
+//        Session session = sessionFactory.openSession();
+//        Query<StoreData> query = session.createQuery(
+//                "SELECT new StoreData(" +
+//                        "sd.date," +
+//                        "CAST(SUM(sd.deaths) as integer ), " +
+//                        "CAST(SUM(sd.infections) as integer ), " +
+//                        "CAST(SUM(sd.recoveries) as integer ), " +
+//                        "CAST(SUM(sd.activeCases) as integer ), " +
+//                        "CAST(SUM(sd.totalDeaths) as integer ) " +
+//                        ")" +
+//                        "FROM Country c " +
+//                        "JOIN c.storeData sd " +
+//                        "WHERE sd.date >= :from AND sd.date <= :to AND c.name <> 'Global'", StoreData.class);
+//        LocalDateTime from = LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00,00,00));
+//        LocalDateTime to = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59,00));
+//        query.setParameter("from", from);
+//        query.setParameter("to", to);
+//        StoreData storeData = query.getSingleResult();
+//        session.close();
+//        return storeData;
+//    }
 
     @Override
     public void storeData(List<Country> countryList) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
+        session.setJdbcBatchSize(20);
         getCountries().forEach(session::delete);
         countryList.forEach(session::persist);
         transaction.commit();
