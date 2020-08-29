@@ -49,6 +49,15 @@ public class ApiDataProvider {
         }
     }
 
+    public static String apiGetFile(){
+        try {
+            return Files.readString(Paths.get(catalog + "data.json"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private static StringBuilder getApiFromUrl() {
         try {
             URL url = new URL(uri);

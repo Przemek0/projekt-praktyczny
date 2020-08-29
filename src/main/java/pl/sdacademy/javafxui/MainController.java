@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.sdacademy.dao.CovidDao;
+import pl.sdacademy.dao.DbCovidDao;
+import pl.sdacademy.jsonClasses.ApiEntityDataProvider;
 import pl.sdacademy.jsonClasses.EntityDataProvider;
 
 import java.io.IOException;
@@ -20,8 +22,8 @@ public class MainController {
 //    private CovidDao covidDao;
 //    @FXML
 //    private EntityDataProvider dataProvider;
-    private CovidDao covidDao;
-    private EntityDataProvider dataProvider;
+    private CovidDao covidDao = new DbCovidDao();
+    private EntityDataProvider dataProvider = new ApiEntityDataProvider();
     @FXML
     private Button showChartBtn;
     @FXML

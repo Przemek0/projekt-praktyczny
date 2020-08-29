@@ -27,8 +27,8 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         MainController controller = fxmlLoader.getController();
-        controller.setCovidDao(new DbCovidDao());
-        controller.setDataProvider(new ApiEntityDataProvider());
+//        controller.setCovidDao(new DbCovidDao());
+//        controller.setDataProvider(new ApiEntityDataProvider());
         return fxmlLoader.load();
     }
 

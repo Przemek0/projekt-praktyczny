@@ -241,8 +241,10 @@ public class JdbcCovidDao implements CovidDao {
     private void setConnection() {
         if (connection == null) {
             MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setUrl("jdbc:mysql://localhost:3306/lotto?serverTimezone=UTC");
+            //dataSource.setServerTimezone("UTC");
             dataSource.setUser("root");
-            dataSource.setPassword("asdf654321");
+            dataSource.setPassword("dr1");
             dataSource.setDatabaseName("practical_project");
 
             try {
