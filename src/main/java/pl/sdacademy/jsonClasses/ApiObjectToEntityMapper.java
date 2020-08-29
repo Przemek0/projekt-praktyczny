@@ -3,6 +3,7 @@ package pl.sdacademy.jsonClasses;
 import pl.sdacademy.entities.Country;
 import pl.sdacademy.entities.StoreData;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ApiObjectToEntityMapper {
@@ -31,6 +32,23 @@ public class ApiObjectToEntityMapper {
 
                     countries.add(country);
                 });
+
+
+        Country country = new Country(
+                "Global",
+                "",
+                0
+        );
+        StoreData storeData = new StoreData(
+                summary.getCountries().stream().findFirst().get().getDate(),
+                summary.getGlobal().getTotalDeaths(),
+                summary.getGlobal().getTotalConfirmed(),
+                summary.getGlobal().getTotalRecovered(),
+                summary.getGlobal().getTotalConfirmed()-summary.getGlobal().getTotalDeaths()-summary.getGlobal().getTotalRecovered(),
+                summary.getGlobal().getTotalDeaths()
+        );
+        country.getStoreData().add(storeData);
+        countries.add(country);
 
         return countries;
     }
