@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.sdacademy.dao.CovidDao;
@@ -17,7 +18,6 @@ import pl.sdacademy.jsonClasses.EntityDataProvider;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 
 public class MainController {
     private CovidDao covidDao;

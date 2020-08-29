@@ -41,7 +41,7 @@ public class ApiObjectToEntityMapper {
         );
         StoreData storeData = new StoreData(
                 summary.getCountries().stream().findFirst().get().getDate(),
-                summary.getGlobal().getTotalDeaths(),
+                summary.getGlobal().getNewDeaths(),
                 summary.getGlobal().getTotalConfirmed(),
                 summary.getGlobal().getTotalRecovered(),
                 summary.getGlobal().getTotalConfirmed()-summary.getGlobal().getTotalDeaths()-summary.getGlobal().getTotalRecovered(),
