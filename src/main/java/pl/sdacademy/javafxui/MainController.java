@@ -1,8 +1,10 @@
 package pl.sdacademy.javafxui;
 
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,12 +20,8 @@ import java.time.format.DateTimeFormatter;
 
 
 public class MainController {
-//    @FXML
-//    private CovidDao covidDao;
-//    @FXML
-//    private EntityDataProvider dataProvider;
-    private CovidDao covidDao = new DbCovidDao();
-    private EntityDataProvider dataProvider = new ApiEntityDataProvider();
+    private CovidDao covidDao;
+    private EntityDataProvider dataProvider;
     @FXML
     private Button showChartBtn;
     @FXML
@@ -31,39 +29,32 @@ public class MainController {
     @FXML
     private Label updatedDateLbl;
 
-    @FXML
-    private void initialize() {
-        Platform.runLater(() -> {
-            showChartBtn.setOnAction(event -> openInNewWindow("dataChart"));
-
-            updateBtn.setOnAction(event -> {
-                covidDao.storeData(dataProvider.load());
-                String updated = "Dane zaktualizowano: " +
-                        LocalDate.now().format(DateTimeFormatter.ISO_DATE);
-                updatedDateLbl.setText(updated);
-            });
+    public void initialize(CovidDao covidDao, ApiEntityDataProvider dataProvider) {
+        this.covidDao  = covidDao;
+        this.dataProvider = dataProvider;
+        showChartBtn.setOnAction(event -> {
+            try {
+                openInNewWindow("dataChart");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        updateBtn.setOnAction(event -> {
+            covidDao.storeData(dataProvider.load());
+            String updated = "Dane zaktualizowano: " +
+                    LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+            updatedDateLbl.setText(updated);
         });
     }
 
-    private void openInNewWindow(String fxml) {
-        try {
+    private void openInNewWindow(String fxml) throws IOException {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxml + ".fxml"));
+            Parent load = fxmlLoader.load();
             DataChartController controller = fxmlLoader.getController();
-            controller.setCovidDao(covidDao);
+            controller.initialize(covidDao);
             Stage stage = new Stage();
-            Scene scene = new Scene(fxmlLoader.load());
+            Scene scene = new Scene(load);
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setCovidDao(CovidDao covidDao) {
-        this.covidDao = covidDao;
-    }
-
-    public void setDataProvider(EntityDataProvider dataProvider) {
-        this.dataProvider = dataProvider;
     }
 }

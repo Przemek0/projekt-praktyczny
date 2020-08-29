@@ -9,6 +9,8 @@ import pl.sdacademy.entities.Country;
 import pl.sdacademy.entities.StoreData;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -71,17 +73,21 @@ public class DbCovidDao implements CovidDao {
     public StoreData getCurrentWorldData() {
         Session session = sessionFactory.openSession();
         Query<StoreData> query = session.createQuery(
-                "SELECT " +
-                        "SUM(sd.activeCases), " +
-                        "SUM(sd.infections), " +
-                        "SUM(sd.recoveries), " +
-                        "SUM(sd.deaths), " +
-                        "SUM(sd.totalDeaths) " +
+                "SELECT new StoreData(" +
+                        "sd.date," +
+                        "CAST(SUM(sd.deaths) as integer ), " +
+                        "CAST(SUM(sd.infections) as integer ), " +
+                        "CAST(SUM(sd.recoveries) as integer ), " +
+                        "CAST(SUM(sd.activeCases) as integer ), " +
+                        "CAST(SUM(sd.totalDeaths) as integer ) " +
+                        ")" +
                         "FROM Country c " +
                         "JOIN c.storeData sd " +
-                        "WHERE sd.date = :today", StoreData.class);
-        LocalDate today = LocalDate.now();
-        query.setParameter("today", today);
+                        "WHERE sd.date >= :from AND sd.date <= :to AND c.name <> 'Global'", StoreData.class);
+        LocalDateTime from = LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00,00,00));
+        LocalDateTime to = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59,00));
+        query.setParameter("from", from);
+        query.setParameter("to", to);
         StoreData storeData = query.getSingleResult();
         session.close();
         return storeData;
