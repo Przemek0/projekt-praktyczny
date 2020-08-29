@@ -64,7 +64,7 @@ public class Country extends AbstractEntity{
                 "name='" + name + '\'' +
                 ", codeName='" + codeName + '\'' +
                 ", numberResident=" + numberResident +
-                ", storeData=" + storeData +
+                //", storeData=" + storeData +
                 ", id=" + id +
                 '}';
     }
