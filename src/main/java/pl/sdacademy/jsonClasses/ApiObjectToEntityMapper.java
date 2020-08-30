@@ -33,12 +33,12 @@ public class ApiObjectToEntityMapper {
                     countries.add(country);
                 });
 
-
         Country country = new Country(
                 "Global",
                 "",
                 0
         );
+
         StoreData storeData = new StoreData(
                 summary.getCountries().stream().findFirst().get().getDate(),
                 summary.getGlobal().getNewDeaths(),
