@@ -3,13 +3,13 @@ package pl.sdacademy.jsonClassEntity;
 import com.fasterxml.jackson.databind.*;
 import pl.sdacademy.jsonClassEntity.covid19.countries.Country;
 
+import java.time.LocalDateTime;
+
 public interface Covid19 {
 
-    JsonNode getTo(boolean refreshJson);
+    LocalDateTime getTimeLastRefresh();
 
-    JsonNode getTo();
-
-    Country[] getCountries(boolean refreshJson);
+    JsonNode getString();
 
     Country[] getCountries();
 
