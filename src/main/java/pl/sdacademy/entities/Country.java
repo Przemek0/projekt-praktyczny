@@ -10,24 +10,24 @@ import java.util.Set;
 public class Country extends AbstractEntity{
     private String name;
     private String codeName;
-    private int numberResident;
+    private String slug;
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private final Set<StoreData> storeData = new HashSet<>();
 
     public Country() {
     }
 
-    public Country(Integer id, String name, String codeName, int numberResident) {
+    public Country(Integer id, String name, String codeName, String slug) {
         this.id = id;
         this.name = name;
         this.codeName = codeName;
-        this.numberResident = numberResident;
+        this.slug = slug;
     }
 
-    public Country(String name, String codeName, int numberResident) {
+    public Country(String name, String codeName, String slug) {
         this.name = name;
         this.codeName = codeName;
-        this.numberResident = numberResident;
+        this.slug = slug;
     }
 
     public String getName() {
@@ -46,26 +46,15 @@ public class Country extends AbstractEntity{
         this.codeName = codeName;
     }
 
-    public int getNumberResident() {
-        return numberResident;
+    public String getSlug() {
+        return slug;
     }
 
-    public void setNumberResident(int numberResident) {
-        this.numberResident = numberResident;
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public Set<StoreData> getStoreData() {
         return storeData;
-    }
-
-    @Override
-    public String toString() {
-        return "Country{" +
-                "name='" + name + '\'' +
-                ", codeName='" + codeName + '\'' +
-                ", numberResident=" + numberResident +
-                //", storeData=" + storeData +
-                ", id=" + id +
-                '}';
     }
 }

@@ -16,12 +16,11 @@ public class ApiObjectToEntityMapper {
                     Country country = new Country(
                             getCountry.getCountry(),
                             getCountry.getCountryCode(),
-                            0
+                            "global"
                     );
 
                     StoreData storeData = new StoreData(
                             getCountry.getDate(),
-                            getCountry.getTotalDeaths(),
                             getCountry.getTotalConfirmed(),
                             getCountry.getTotalRecovered(),
                             getCountry.getTotalConfirmed() - getCountry.getTotalDeaths()-getCountry.getTotalRecovered(),
@@ -36,7 +35,7 @@ public class ApiObjectToEntityMapper {
         Country country = new Country(
                 "Global",
                 "",
-                0
+                "global"
         );
 
         StoreData storeData = new StoreData(
@@ -44,8 +43,7 @@ public class ApiObjectToEntityMapper {
                 summary.getGlobal().getNewDeaths(),
                 summary.getGlobal().getTotalConfirmed(),
                 summary.getGlobal().getTotalRecovered(),
-                summary.getGlobal().getTotalConfirmed()-summary.getGlobal().getTotalDeaths()-summary.getGlobal().getTotalRecovered(),
-                summary.getGlobal().getTotalDeaths()
+                summary.getGlobal().getTotalConfirmed()-summary.getGlobal().getTotalDeaths()-summary.getGlobal().getTotalRecovered()
         );
         country.getStoreData().add(storeData);
         countries.add(country);

@@ -97,8 +97,8 @@ public class JdbcCovidDao implements CovidDao {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String codeName = resultSet.getString("codeName");
-                int numberResident = resultSet.getInt("numberResident");
-                Country country = new Country(id, name, codeName, numberResident);
+                String slug = resultSet.getString("numberResident");
+                Country country = new Country(id, name, codeName, slug);
                 countries.add(country);
             }
         } catch (SQLException throwables) {
@@ -175,7 +175,7 @@ public class JdbcCovidDao implements CovidDao {
     private void saveCountry(Country country) throws SQLException {
         saveCountry.setString(1, country.getCodeName());
         saveCountry.setString(2, country.getName());
-        saveCountry.setInt(3, country.getNumberResident());
+        saveCountry.setString(3, country.getSlug());
         saveCountry.execute();
         ResultSet countryGeneratedKeys = saveCountry.getGeneratedKeys();
         countryGeneratedKeys.next();
@@ -227,8 +227,7 @@ public class JdbcCovidDao implements CovidDao {
                 deaths,
                 infections,
                 recoveries,
-                activeCases,
-                totalDeaths
+                activeCases
         );
     }
 

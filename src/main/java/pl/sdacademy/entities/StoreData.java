@@ -11,28 +11,25 @@ public class StoreData extends AbstractEntity{
     private int infections;
     private int recoveries;
     private int activeCases;
-    private int totalDeaths;
 
     public StoreData() {
     }
 
-    public StoreData(LocalDateTime date, int deaths, int infections, int recoveries, int activeCases, int totalDeaths) {
+    public StoreData(LocalDateTime date, int deaths, int infections, int recoveries, int activeCases) {
         this.date = date;
         this.deaths = deaths;
         this.infections = infections;
         this.recoveries = recoveries;
         this.activeCases = activeCases;
-        this.totalDeaths = totalDeaths;
     }
 
-    public StoreData(int id, LocalDateTime date, int deaths, int infections, int recoveries, int activeCases, int totalDeaths) {
+    public StoreData(int id, LocalDateTime date, int deaths, int infections, int recoveries, int activeCases) {
         this.id = id;
         this.date = date;
         this.deaths = deaths;
         this.infections = infections;
         this.recoveries = recoveries;
         this.activeCases = activeCases;
-        this.totalDeaths = totalDeaths;
     }
 
     public LocalDateTime getDate() {
@@ -73,26 +70,5 @@ public class StoreData extends AbstractEntity{
 
     public void setActiveCases(int activeCases) {
         this.activeCases = activeCases;
-    }
-
-    public int getTotalDeaths() {
-        return totalDeaths;
-    }
-
-    public void setTotalDeaths(int totalDeaths) {
-        this.totalDeaths = totalDeaths;
-    }
-
-    @Override
-    public String toString() {
-        return "StoreData{" +
-                "date=" + date +
-                ", deaths=" + deaths +
-                ", infections=" + infections +
-                ", recoveries=" + recoveries +
-                ", activeCases=" + activeCases +
-                ", totalDeaths=" + totalDeaths +
-                ", id=" + id +
-                '}';
     }
 }

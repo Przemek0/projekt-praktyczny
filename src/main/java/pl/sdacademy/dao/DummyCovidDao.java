@@ -13,11 +13,11 @@ public class DummyCovidDao implements CovidDao {
     private final List<Country> countries = new ArrayList<>();
 
     public DummyCovidDao() {
-        Country poland = new Country("Poland", "PL", 1234566);
-        StoreData polandStoreData = new StoreData(0, LocalDateTime.now(), 123, 1234,123123,123123,123123);
+        Country poland = new Country("Poland", "PL", "poland");
+        StoreData polandStoreData = new StoreData(0, LocalDateTime.now(), 123, 1234,123123,123123);
         poland.getStoreData().add(polandStoreData);
-        Country germany = new Country("Germany", "DE", 1234566);
-        StoreData germanyStoreData = new StoreData(1, LocalDateTime.now(), 4325, 325,235,4526,234);
+        Country germany = new Country("Germany", "DE", "germany");
+        StoreData germanyStoreData = new StoreData(1, LocalDateTime.now(), 4325, 325,235,4526);
         germany.getStoreData().add(germanyStoreData);
     }
 
@@ -45,8 +45,7 @@ public class DummyCovidDao implements CovidDao {
                 213,
                 42,
                 12345,
-                123456,
-                11
+                123456
         );
     }
 
