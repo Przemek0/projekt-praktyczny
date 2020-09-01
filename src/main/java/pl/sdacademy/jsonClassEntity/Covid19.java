@@ -1,14 +1,14 @@
 package pl.sdacademy.jsonClassEntity;
 
 import com.fasterxml.jackson.databind.*;
-import pl.sdacademy.jsonClassEntity.covid19.countries.CountryData;
-import java.time.LocalDateTime;
+import pl.sdacademy.jsonClassEntity.covid19.countries.CountryClass;
+
 import java.util.List;
 
-public interface Covid19 {
+public interface Covid19<T> {
 
     JsonNode getString();
 
-   List<CountryData> getCountries();
+    List<T> getList();
 
 }
