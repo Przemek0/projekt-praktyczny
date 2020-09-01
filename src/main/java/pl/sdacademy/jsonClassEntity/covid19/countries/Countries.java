@@ -5,21 +5,22 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import pl.sdacademy.jsonClassEntity.Covid19;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Countries implements Covid19 {
-    private LocalDateTime time;
-    private Country[] countries;
+    private List<CountryData> countries = new ArrayList<>();
 
     public Countries() {
-        System.out.println("Get");
         try {
             ObjectMapper mapper = configMapper();
-            countries = mapper.readValue(getUri(), Country[].class);
-            time = LocalDateTime.now();
+            countries.addAll(Arrays.asList(mapper.readValue(getUri(), CountryData[].class)));
         } catch (IOException ignored) {
         }
     }
@@ -39,17 +40,12 @@ public class Countries implements Covid19 {
     }
 
     @Override
-    public LocalDateTime getTimeLastRefresh() {
-        return time;
-    }
-
-    @Override
     public JsonNode getString() {
         return new ObjectMapper().valueToTree(countries);
     }
 
     @Override
-    public Country[] getCountries() {
+    public List<CountryData> getCountries() {
         return countries;
     }
 }

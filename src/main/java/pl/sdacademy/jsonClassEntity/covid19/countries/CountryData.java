@@ -1,25 +1,25 @@
 package pl.sdacademy.jsonClassEntity.covid19.countries;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.sdacademy.entities.AbstractEntity;
 
-import javax.persistence.Entity;
-
-@Entity
-public class Country extends AbstractEntity {
+public class CountryData extends AbstractEntity {
+    @JsonProperty("Country")
     private String country;
+    @JsonProperty("Slug")
     private String slug;
-    private String is02;
+    @JsonProperty("ISO2")
+    private String iso2;
 
-    public Country() {
+    public CountryData() {
     }
 
-    public Country(String country, String slug, String is02) {
+    public CountryData(String country, String slug, String is02) {
         this.country = country;
         this.slug = slug;
-        this.is02 = is02;
+        this.iso2 = is02;
     }
 
-    @JsonProperty("Country")
     public String getCountry() {
         return country;
     }
@@ -28,7 +28,6 @@ public class Country extends AbstractEntity {
         this.country = country;
     }
 
-    @JsonProperty("Slug")
     public String getSlug() {
         return slug;
     }
@@ -37,13 +36,12 @@ public class Country extends AbstractEntity {
         this.slug = slug;
     }
 
-    @JsonProperty("IS02")
-    public String getIs02() {
-        return is02;
+    public String getIso2() {
+        return iso2;
     }
 
-    public void setIs02(String is02) {
-        this.is02 = is02;
+    public void setIso2(String iso2) {
+        this.iso2 = iso2;
     }
 
     @Override
@@ -51,15 +49,8 @@ public class Country extends AbstractEntity {
         return "Covid19_Country_Class{" +
                 "country='" + country + '\'' +
                 ", slug='" + slug + '\'' +
-                ", is02='" + is02 + '\'' +
+                ", iso2='" + iso2 + '\'' +
                 '}';
     }
 
-    /*  Example Response.
-          {
-                "Country"   : "Barbados",
-                "Slug"      : "barbados",
-                "ISO2"      : "BB"
-          }
-    */
 }
