@@ -1,9 +1,8 @@
 package pl.sdacademy.jsonClassEntity.covid19.countries;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pl.sdacademy.entities.AbstractEntity;
 
-public class CountryData extends AbstractEntity {
+public class CountryClass {
     @JsonProperty("Country")
     private String country;
     @JsonProperty("Slug")
@@ -11,10 +10,10 @@ public class CountryData extends AbstractEntity {
     @JsonProperty("ISO2")
     private String iso2;
 
-    public CountryData() {
+    public CountryClass() {
     }
 
-    public CountryData(String country, String slug, String is02) {
+    public CountryClass(String country, String slug, String is02) {
         this.country = country;
         this.slug = slug;
         this.iso2 = is02;

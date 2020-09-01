@@ -1,4 +1,4 @@
-package pl.sdacademy.jsonClassEntity.covid19.countries;
+package pl.sdacademy.jsonClassEntity.covid19.countryDayOne;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -9,18 +9,17 @@ import pl.sdacademy.jsonClassEntity.Covid19;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Countries implements Covid19 {
-    private List<CountryData> countries = new ArrayList<>();
+public class CountryDayOnes implements Covid19<CountryDayOneAll> {
+    private final List<CountryDayOneAll> countryDayOne = new ArrayList<>();
 
-    public Countries() {
+    public CountryDayOnes(String slug) {
         try {
             ObjectMapper mapper = configMapper();
-            countries.addAll(Arrays.asList(mapper.readValue(getUri(), CountryData[].class)));
+            countryDayOne.addAll(Arrays.asList(mapper.readValue(getUri(slug), CountryDayOneAll[].class)));
         } catch (IOException ignored) {
         }
     }
@@ -35,17 +34,18 @@ public class Countries implements Covid19 {
         return DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
     }
 
-    private URL getUri() throws MalformedURLException {
-        return new URL("https://api.covid19api.com/countries");
+    private URL getUri(String slug) throws MalformedURLException {
+        return new URL("https://api.covid19api.com/total/dayone/country/" + slug);
     }
 
     @Override
     public JsonNode getString() {
-        return new ObjectMapper().valueToTree(countries);
+        return new ObjectMapper().valueToTree(countryDayOne);
     }
 
     @Override
-    public List<CountryData> getCountries() {
-        return countries;
+    public List<CountryDayOneAll> getList() {
+        return countryDayOne;
     }
+
 }
