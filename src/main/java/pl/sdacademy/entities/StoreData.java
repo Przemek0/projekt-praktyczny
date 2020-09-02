@@ -71,4 +71,15 @@ public class StoreData extends AbstractEntity{
     public void setActiveCases(int activeCases) {
         this.activeCases = activeCases;
     }
+
+    @Override
+    public String toString() {
+        return "StoreData{" +
+                "date=" + date +
+                ", deaths=" + deaths +
+                ", infections=" + infections +
+                ", recoveries=" + recoveries +
+                ", activeCases=" + activeCases +
+                '}';
+    }
 }

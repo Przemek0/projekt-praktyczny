@@ -24,9 +24,9 @@ public class DataChartController {
 
     public void initialize(CovidDao covidDao) {
         this.covidDao = covidDao;
-        StoreData currentWorldData = covidDao.getCurrentWorldData();
-        activeCasesWorldLbl.setText(currentWorldData.getActiveCases() + "");
-        totalDeathsWorldLbl.setText(currentWorldData.getTotalDeaths() + "");
+//        StoreData currentWorldData = covidDao.getCurrentWorldData();
+//        activeCasesWorldLbl.setText(currentWorldData.getActiveCases() + "");
+//        totalDeathsWorldLbl.setText(currentWorldData.getDeaths() + "");
         initializeComboBox();
     }
 

@@ -12,16 +12,19 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.sdacademy.dao.CovidDao;
 import pl.sdacademy.dao.DbCovidDao;
+import pl.sdacademy.entities.Country;
+import pl.sdacademy.jsonClassEntity.covid19.ApiObjectToEntityMapper;
+import pl.sdacademy.jsonClassEntity.covid19.countries.CountryDataProvider;
 import pl.sdacademy.jsonClasses.ApiEntityDataProvider;
 import pl.sdacademy.jsonClasses.EntityDataProvider;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class MainController {
     private CovidDao covidDao;
-    private EntityDataProvider dataProvider;
     @FXML
     private Button showChartBtn;
     @FXML
@@ -29,9 +32,8 @@ public class MainController {
     @FXML
     private Label updatedDateLbl;
 
-    public void initialize(CovidDao covidDao, ApiEntityDataProvider dataProvider) {
+    public void initialize(CovidDao covidDao) {
         this.covidDao  = covidDao;
-        this.dataProvider = dataProvider;
         showChartBtn.setOnAction(event -> {
             try {
                 openInNewWindow("dataChart");
@@ -40,7 +42,8 @@ public class MainController {
             }
         });
         updateBtn.setOnAction(event -> {
-            covidDao.storeData(dataProvider.load());
+            List<Country> countries = ApiObjectToEntityMapper.map(new CountryDataProvider().getList());
+            covidDao.storeData(countries);
             String updated = "Dane zaktualizowano: " +
                     LocalDate.now().format(DateTimeFormatter.ISO_DATE);
             updatedDateLbl.setText(updated);

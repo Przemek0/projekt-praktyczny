@@ -1,14 +1,8 @@
-package pl.sdacademy.jsonClassEntity.covid19.countryDayOne;
+package pl.sdacademy.jsonClassEntity.covid19.dataaccess;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import pl.sdacademy.entities.AbstractEntity;
 
-import java.time.LocalDateTime;
-
-public class CountryDayOneAll {
+public class DataApi {
     @JsonProperty("Country")
     private String country;
     @JsonProperty("CountryCode")
@@ -34,10 +28,10 @@ public class CountryDayOneAll {
     @JsonProperty("Date")
     private String date;
 
-    public CountryDayOneAll() {
+    public DataApi() {
     }
 
-    public CountryDayOneAll(String country, String countryCode, String province, String city, String cityCode, String lat, String lon, int confirmed, int deaths, int recovered, int active, String date) {
+    public DataApi(String country, String countryCode, String province, String city, String cityCode, String lat, String lon, int confirmed, int deaths, int recovered, int active, String date) {
         this.country = country;
         this.countryCode = countryCode;
         this.province = province;

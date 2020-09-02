@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.sdacademy.dao.CovidDao;
 import pl.sdacademy.dao.DbCovidDao;
+import pl.sdacademy.dao.JdbcCovidDao;
 import pl.sdacademy.jsonClasses.ApiEntityDataProvider;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main.fxml"));
         Parent load = fxmlLoader.load();
         MainController controller = fxmlLoader.getController();
-        controller.initialize(new DbCovidDao(), new ApiEntityDataProvider());
+        controller.initialize(new DbCovidDao());
         Scene scene = new Scene(load);
         stage.setScene(scene);
         stage.show();

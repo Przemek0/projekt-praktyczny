@@ -1,50 +1,55 @@
 package pl.sdacademy.jsonClassEntity.covid19.countries;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import pl.sdacademy.jsonClassEntity.Covid19;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class CountryApi implements Covid19<CountryClass> {
-    private final List<CountryClass> countries = new ArrayList<>();
+public class CountryApi {
+    @JsonProperty("Country")
+    private String name;
+    @JsonProperty("Slug")
+    private String slug;
+    @JsonProperty("ISO2")
+    private String codeName;
 
     public CountryApi() {
-        try {
-            ObjectMapper mapper = configMapper();
-            countries.addAll(Arrays.asList(mapper.readValue(getUri(), CountryClass[].class)));
-        } catch (IOException ignored) {
-        }
     }
 
-    private JsonMapper configMapper() {
-        return JsonMapper.builder()
-                .configure(getParameter(), false)
-                .build();
+    public CountryApi(String name, String slug, String iso2) {
+        this.name = name;
+        this.slug = slug;
+        this.codeName = iso2;
     }
 
-    private DeserializationFeature getParameter() {
-        return DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+    public String getName() {
+        return name;
     }
 
-    private URL getUri() throws MalformedURLException {
-        return new URL("https://api.covid19api.com/countries");
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getCodeName() {
+        return codeName;
+    }
+
+    public void setCodeName(String codeName) {
+        this.codeName = codeName;
     }
 
     @Override
-    public JsonNode getString() {
-        return new ObjectMapper().valueToTree(countries);
+    public String toString() {
+        return "Covid19_Country_Class{" +
+                "country='" + name + '\'' +
+                ", slug='" + slug + '\'' +
+                ", codeName='" + codeName + '\'' +
+                '}';
     }
 
-    @Override
-    public List<CountryClass> getList() {
-        return countries;
-    }
 }

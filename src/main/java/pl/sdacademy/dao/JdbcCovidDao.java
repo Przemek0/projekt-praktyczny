@@ -77,7 +77,7 @@ public class JdbcCovidDao implements CovidDao {
 
         saveStoreData = connection.prepareStatement(
                 "INSERT INTO practical_project.storedata (activeCases, date, deaths, infections, recoveries, totalDeaths) " +
-                        "VALUES (?, ?, ?, ?, ?, ?)",
+                        "VALUES (?, ?, ?, ?, ?)",
                 Statement.RETURN_GENERATED_KEYS
         );
 
@@ -196,7 +196,6 @@ public class JdbcCovidDao implements CovidDao {
         saveStoreData.setInt(3, storeData.getDeaths());
         saveStoreData.setInt(4, storeData.getInfections());
         saveStoreData.setInt(5, storeData.getRecoveries());
-        saveStoreData.setInt(6, storeData.getTotalDeaths());
         saveStoreData.execute();
         ResultSet storeDataGeneratedKeys = saveStoreData.getGeneratedKeys();
         storeDataGeneratedKeys.next();
