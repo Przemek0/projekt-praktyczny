@@ -42,7 +42,7 @@ public class MainController {
             }
         });
         updateBtn.setOnAction(event -> {
-            List<Country> countries = ApiObjectToEntityMapper.map(new CountryDataProvider().getList());
+            List<Country> countries = ApiObjectToEntityMapper.map(new CountryDataProvider().getCountries());
             covidDao.storeData(countries);
             String updated = "Dane zaktualizowano: " +
                     LocalDate.now().format(DateTimeFormatter.ISO_DATE);

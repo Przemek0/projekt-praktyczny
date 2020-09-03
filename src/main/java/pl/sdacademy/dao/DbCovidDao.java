@@ -95,11 +95,11 @@ public class DbCovidDao implements CovidDao {
                         ")" +
                         "FROM Country c " +
                         "JOIN c.storeData sd " +
-                        "WHERE sd.date >= :from AND sd.date <= :to", StoreData.class);
-        LocalDateTime from = LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00,00,00));
-        LocalDateTime to = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59,00));
-        query.setParameter("from", from);
-        query.setParameter("to", to);
+                        "WHERE sd.date = (SELECT MAX(sd2.date) FROM Country c2 JOIN c2.storeData sd2)", StoreData.class);
+//        LocalDateTime from = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0,0,0));
+//        LocalDateTime to = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59,0));
+//        query.setParameter("from", from);
+//        query.setParameter("to", to);
         StoreData storeData = query.getSingleResult();
         session.close();
         return storeData;
@@ -110,13 +110,8 @@ public class DbCovidDao implements CovidDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         getCountries().forEach(session::delete);
+        countryList.forEach(session::persist);
         transaction.commit();
-        countryList.forEach(object -> {
-            Transaction transaction1 = session.beginTransaction();
-            System.out.println(object);
-            session.persist(object);
-            transaction1.commit();
-        });
         session.close();
     }
 }

@@ -1,25 +1,25 @@
 package pl.sdacademy.jsonClassEntity.covid19.dataaccess;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import pl.sdacademy.jsonClassEntity.Covid19;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
-public class DataByCountry {
-    private final Set<DataApi> countryDayOne = new HashSet<>();
+public class DataByCountryProvider {
 
-    public void getData(String slug) {
+    public Set<DataApi> getData(String slug) {
+        List<DataApi> dataApiList = new ArrayList<>();
+        ObjectMapper mapper = configMapper();
         try {
-            ObjectMapper mapper = configMapper();
-            countryDayOne.addAll(Arrays.asList(mapper.readValue(getUri(slug), DataApi[].class)));
-        } catch (IOException ignored) {
+            dataApiList = Arrays.asList(mapper.readValue(getUri(slug), DataApi[].class));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return new HashSet<>(dataApiList);
     }
 
     private JsonMapper configMapper() {
@@ -35,13 +35,4 @@ public class DataByCountry {
     private URL getUri(String slug) throws MalformedURLException {
         return new URL("https://api.covid19api.com/total/dayone/country/" + slug);
     }
-
-    public JsonNode getString() {
-        return new ObjectMapper().valueToTree(countryDayOne);
-    }
-
-    public Set<DataApi> getDataSet() {
-        return countryDayOne;
-    }
-
 }
