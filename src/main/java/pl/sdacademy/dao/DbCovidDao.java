@@ -87,7 +87,7 @@ public class DbCovidDao implements CovidDao {
         Session session = sessionFactory.openSession();
         Query<StoreData> query = session.createQuery(
                 "SELECT new StoreData(" +
-                        "sd.date," +
+                        "MAX(sd.date)," +
                         "CAST(SUM(sd.deaths) as integer ), " +
                         "CAST(SUM(sd.infections) as integer ), " +
                         "CAST(SUM(sd.recoveries) as integer ), " +

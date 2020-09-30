@@ -21,6 +21,7 @@ import pl.sdacademy.jsonClasses.EntityDataProvider;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.EventListener;
 import java.util.List;
 
 public class MainController {
@@ -42,11 +43,16 @@ public class MainController {
             }
         });
         updateBtn.setOnAction(event -> {
-            List<Country> countries = ApiObjectToEntityMapper.map(new CountryDataProvider().getCountries());
-            covidDao.storeData(countries);
-            String updated = "Dane zaktualizowano: " +
-                    LocalDate.now().format(DateTimeFormatter.ISO_DATE);
-            updatedDateLbl.setText(updated);
+            StringBuilder stringBuilder = new StringBuilder().append("Dane zaktualizowano: downloading data");
+            updatedDateLbl.setText(stringBuilder.toString());
+            Thread thread = new Thread(() -> {
+                List<Country> countries = ApiObjectToEntityMapper.map(new CountryDataProvider().getCountries());
+                covidDao.storeData(countries);
+                stringBuilder.delete(21, stringBuilder.length());
+                stringBuilder.append(LocalDate.now().format(DateTimeFormatter.ISO_DATE));
+                Platform.runLater(() -> updatedDateLbl.setText(stringBuilder.toString()));
+            });
+            thread.start();
         });
     }
 
