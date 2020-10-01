@@ -36,7 +36,7 @@ public class DbCovidDao implements CovidDao {
     }
 
     @Override
-    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) {
+    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDateTime from, LocalDateTime to) {
         Session session = sessionFactory.openSession();
         Query<StoreData> query = session.createQuery(
                 "SELECT sd " +

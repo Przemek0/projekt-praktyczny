@@ -27,7 +27,7 @@ public class DummyCovidDao implements CovidDao {
     }
 
     @Override
-    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) {
+    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDateTime from, LocalDateTime to) {
         return countries.get(id).getStoreData();
     }
 

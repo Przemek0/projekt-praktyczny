@@ -108,12 +108,12 @@ public class JdbcCovidDao implements CovidDao {
     }
 
     @Override
-    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to) {
+    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDateTime from, LocalDateTime to) {
         Set<StoreData> storeDataSet = new HashSet<>();
         try {
             getDataByCountryAndDateRange.setInt(1, id);
-            getDataByCountryAndDateRange.setDate(2, Date.valueOf(from));
-            getDataByCountryAndDateRange.setDate(3, Date.valueOf(to));
+            getDataByCountryAndDateRange.setDate(2, Date.valueOf(String.valueOf(from)));
+            getDataByCountryAndDateRange.setDate(3, Date.valueOf(String.valueOf(to)));
             ResultSet resultSet = getDataByCountryAndDateRange.executeQuery();
             while (resultSet.next()) {
                 StoreData storeData = getStoredData(resultSet);

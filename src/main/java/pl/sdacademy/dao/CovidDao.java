@@ -11,13 +11,14 @@ import pl.sdacademy.entities.Country;
 import pl.sdacademy.entities.StoreData;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
 public interface CovidDao{
     public List<Country> getCountries();
 
-    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDate from, LocalDate to);
+    public Set<StoreData> getDataByCountryAndDateRange(int id, LocalDateTime from, LocalDateTime to);
 
     public StoreData getCurrentDataByCountry(int id);
 
